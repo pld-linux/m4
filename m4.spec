@@ -34,8 +34,8 @@ CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" ./configure --prefix=/usr
 make
 
 %install
-./configure --prefix=$RPM_BUILD_ROOT/usr
-make install
+rm -rf $RPM_BUILD_ROOT
+make install prefix=$RPM_BUILD_ROOT/usr
 strip $RPM_BUILD_ROOT/usr/bin/m4
 gzip -9fn $RPM_BUILD_ROOT/usr/info/*
 
@@ -68,6 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Nov 12 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.4k-1]
 - changed base Source URL,
+- siplification in %install,
 - changed way passing $RPM_OPT_FLAGS and LDFLAGS,
 - cosmetic canges in %prep
 - added .mo files with %lang macros in %files.
