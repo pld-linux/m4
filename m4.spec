@@ -58,7 +58,7 @@ kodu ¼ród³owego.
 Summary:	Files to develop application with embedded m4 interpreter
 Summary(pl):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description devel
 Files to develop application with embedded m4 interpreter.
@@ -70,7 +70,7 @@ Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
 Summary:	Static m4 library
 Summary(pl):	Statyczna biblioteka m4
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{epoch}:%{version}
 
 %description static
 Static m4 library.
