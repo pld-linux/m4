@@ -1,18 +1,19 @@
-Summary:     GNU Macro Processor
-Summary(de): GNU-Makro-Prozessor
-Summary(fr): Processeur de macros de GNU
-Summary(pl): GNU makro procesor
-Summary(tr): GNU Makro Ýþlemcisi
-Name:        m4
-Version:     1.4n
-Release:     2
-Copyright:   GPL
-Group:       Utilities/Text
-Source:      ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
-Patch0:      m4-info.patch
-URL:         http://www.seindal.dk/rene/gnu/
-Prereq:      /sbin/install-info
-Buildroot:   /tmp/%{name}-%{version}-root
+Summary:	GNU Macro Processor
+Summary(de):	GNU-Makro-Prozessor
+Summary(fr):	Processeur de macros de GNU
+Summary(pl):	GNU makro procesor
+Summary(tr):	GNU Makro Ýþlemcisi
+Name:		m4
+Version:	1.4n
+Release:	3
+Copyright:	GPL
+Group:		Utilities/Text
+Group(pl):	Narzêdzia/Tekst
+Source:		ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
+Patch0:		m4-info.patch
+URL:		http://www.seindal.dk/rene/gnu/
+Prereq:		/sbin/install-info
+Buildroot:	/tmp/%{name}-%{version}-root
 
 %description
 This is the GNU Macro processing language. It is useful for writing text
@@ -56,7 +57,7 @@ gzip -9fn $RPM_BUILD_ROOT/usr/{info/*,man/man1/*}
 /sbin/install-info /usr/info/m4.info.gz /etc/info-dir
 
 %preun
-if [ $1 = 0 ]; then
+if [ "$1" = "0" ]; then
 	/sbin/install-info --delete /usr/info/m4.info.gz /etc/info-dir
 fi
 
@@ -69,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) /usr/bin/m4
 /usr/info/m4*
 /usr/share/m4
-%attr(644, root,  man) /usr/man/man1/*
+/usr/man/man1/*
 %lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
 %lang(fr) /usr/share/locale/fr/LC_MESSAGES/m4.mo
 %lang(it) /usr/share/locale/it/LC_MESSAGES/m4.mo
@@ -80,6 +81,11 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/share/locale/sv/LC_MESSAGES/m4.mo
 
 %changelog
+* Wed Mar 10 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.4n-3]
+- added Group(pl),
+- removed man group from man pages.
+
 * Sun Jan 03 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.4n-2]
 - standarized {un}registering info pages (added m4-info.patch),
