@@ -6,17 +6,17 @@ Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4p
 %define		_pre	pre2
-Release:	0.%{_pre}.9
+Release:	0.%{_pre}.10
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
 # Source0-md5: a40e0a64e0c0128e38b7e4892beba2cb
 Patch0:		%{name}-ac_am_cleanups.patch
-Patch1:		%{name}-format_string_fix.patch
-Patch2:		%{name}-info.patch
-Patch3:		%{name}-pl.po-update.patch
-Patch4:		%{name}-po-fix.patch
+Patch1:		%{name}-info.patch
+Patch2:		%{name}-pl.po-update.patch
+Patch3:		%{name}-po-fix.patch
+Patch4:		%{name}-fixes-1.4.1.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -58,7 +58,7 @@ kodu ¼ród³owego.
 Summary:	Files to develop application with embedded m4 interpreter
 Summary(pl):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description devel
 Files to develop application with embedded m4 interpreter.
@@ -70,7 +70,7 @@ Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
 Summary:	Static m4 library
 Summary(pl):	Statyczna biblioteka m4
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static m4 library.
@@ -79,7 +79,7 @@ Static m4 library.
 Statyczna biblioteka m4.
 
 %prep
-%setup  -q -n %{name}-%{version}%{_pre}
+%setup -q -n %{name}-%{version}%{_pre}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
