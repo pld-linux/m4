@@ -80,5 +80,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/m4
 %{_infodir}/m4*
 %{_mandir}/man1/*
-
-%attr(755,root,root) %{_libexecdir}/m4/*.so
