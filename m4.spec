@@ -97,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 - added -q %setup parameter,
 - changed Buildroot to /tmp/%%{name}-%%{version}-root,
 - added using %%{name} and %%{version} in Source,
-- added %attr and %defattr macros in %files (allow build package from
+- added %attr and %defattr macros in %files (allows build package from
   non-root account).
 
 * Fri Apr 24 1998 Prospector System <bugs@redhat.com>
