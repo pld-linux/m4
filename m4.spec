@@ -9,8 +9,6 @@ Release:	5
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
-Group(de):	Applikationen/Text
-Group(pl):	Aplikacje/Tekst
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 # Source0-md5:	ade5506c8219f2375bba85f8fa86bab7
 Patch0:		%{name}-info.patch
@@ -19,6 +17,8 @@ Patch2:		%{name}-ac250.patch
 Patch3:		%{name}-ac.patch
 Patch4:		%{name}-po-fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	libltdl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
