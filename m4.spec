@@ -7,7 +7,7 @@ Name:		m4
 Version:	1.4p
 %define		_pre	pre2
 Release:	0.%{_pre}.3
-Epoch:		1
+Epoch:		2
 License:	GPL
 Group:		Applications/Text
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
