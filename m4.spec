@@ -11,7 +11,6 @@ Group:		Utilities/Text
 Group(pl):	Narzêdzia/Tekst
 Source:		ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 Patch0:		m4-info.patch
-Patch1:		m4-autoconf.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
 Prereq:		/usr/sbin/fix-info-dir
@@ -43,12 +42,8 @@ Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
 %prep
 %setup  -q
 %patch0 -p1
-%patch1 -p1
 
 %build
-aclocal
-autoconf
-automake
 gettextize --copy --force
 LDFLAGS="-s"; export LDFLAGS
 %configure \
