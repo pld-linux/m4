@@ -22,7 +22,7 @@ URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-devel >= 0.11.5
 BuildRequires:	libltdl-devel
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
