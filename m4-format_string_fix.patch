@@ -82,12 +82,13 @@ I don't see this as a big problem, but here's a patch:
  	break;
 
        case 's':
-@@ -466,7 +466,7 @@
- 	    fp = path_search (argv[optind]);
+@@ -466,8 +466,8 @@
+ 	    fp = path_search (argv[optind], &filename);
  	    if (fp == NULL)
  	      {
 -		error (0, errno, argv[optind]);
 +		error (0, errno, "%s", argv[optind]);
+ 		exit_status = EXIT_FAILURE;
  		continue;
  	      }
  	    else
