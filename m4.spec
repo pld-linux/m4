@@ -5,7 +5,7 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4q
-Release:	0.2
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
