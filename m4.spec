@@ -56,7 +56,7 @@ kodu ¼ród³owego.
 %build
 rm -f missing ltmain.sh ltconfig
 gettextize --copy --force
-libtoolize --copy --force
+%{__libtoolize}
 aclocal
 automake -a
 autoheader
