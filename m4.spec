@@ -6,7 +6,7 @@ Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4p
 %define		_pre	pre2
-Release:	0.%{_pre}.2
+Release:	0.%{_pre}.3
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
@@ -104,9 +104,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+/sbin/ldconfig
 
 %postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+/sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
