@@ -20,10 +20,10 @@ Patch4:		%{name}-po-fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel >= 0.11.5
+BuildRequires:	gettext-devel
 BuildRequires:	gmp-devel
 BuildRequires:	libltdl-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:1.5
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
