@@ -6,7 +6,7 @@ Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4p
 %define		_pre	pre2
-Release:	0.1%{_pre}
+Release:	0.%{_pre}.2
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
