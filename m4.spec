@@ -62,7 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644, root, root, 755)
 %doc NEWS README
 %attr(755, root, root) /usr/bin/m4
-/usr/info/*
+/usr/info/m4*
 /usr/share/m4
 %attr(644, root,  man) /usr/man/man1/*
 %lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
@@ -79,6 +79,7 @@ rm -rf $RPM_BUILD_ROOT
   [1.4m-1]
 - added URL,
 - added pl transaltion,
+- fixed: removed /usr/info/dir from %files.
 - added m4 man page to %files,
 - cosmetic changes in %post, %preun in {un}installing m4 info page,
 - added /usr/share/m4 to %files.
