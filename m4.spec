@@ -5,13 +5,14 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4n
-Release:	1
-Serial:		1
+Release:	2
+Epoch:		1
 License:	GPL
-Group:		Utilities/Text
-Group(pl):	Narzêdzia/Tekst
+Group:		Applications/Text
+Group(de):	Applikationen/Text
+Group(pl):	Aplikacje/Tekst
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
-Patch0:		m4-info.patch
+Patch0:		%{name}-info.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -48,7 +49,6 @@ kodu ¼ród³owego.
 
 %build
 gettextize --copy --force
-LDFLAGS="-s"; export LDFLAGS
 %configure \
 	--without-included-gettext
 %{__make}
@@ -58,8 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
-	NEWS README
+gzip -9nf NEWS README
 
 %find_lang %{name}
 
