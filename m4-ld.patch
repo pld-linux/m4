@@ -1,0 +1,11 @@
+--- m4/src/Makefile.am~	Sun Jan 16 16:49:03 2000
++++ m4/src/Makefile.am	Thu Oct 31 22:27:34 2002
+@@ -21,7 +21,7 @@
+ EXTRA_m4_SOURCES = numb.c numb.h
+ 
+ 
+-m4_LDADD = @M4OBJS@ $(top_srcdir)/lib/libm4.la @INTLLIBS@
++m4_LDADD = @M4OBJS@ $(top_srcdir)/lib/libm4.la @INTLLIBS@ -ldl
+ m4_LDFLAGS = -no-undefined @DLLDFLAGS@
+ 
+ $(bin_PROGRAMS): @M4OBJS@
