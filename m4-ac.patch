@@ -1,15 +1,7 @@
---- m4/configure.in~	Thu Oct 31 19:36:20 2002
-+++ m4/configure.in	Thu Oct 31 19:43:47 2002
-@@ -2,8 +2,6 @@
- # Copyright (C) 1991-1998 Free Software Foundation, Inc.
- # Process this file with autoconf to produce a configure script.
- 
--undefine([changeword])
--
- AC_INIT(src/m4.c)
- AM_CONFIG_HEADER(config.h)
- AC_ARG_PROGRAM
-@@ -134,18 +134,10 @@
+diff -Nru m4-1.4ppre2.orig/configure.in m4-1.4ppre2/configure.in
+--- m4-1.4ppre2.orig/configure.in	Sun Jan 16 17:28:03 2000
++++ m4-1.4ppre2/configure.in	Thu Apr  3 09:43:12 2003
+@@ -136,18 +136,10 @@
  
  dnl AC_LINK_FILES($nls_cv_header_libgt, $nls_cv_header_intl)
  
