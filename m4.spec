@@ -15,6 +15,7 @@ Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
+BuildRequires:	libltdl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libexecdir	%{_libdir}
