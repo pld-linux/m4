@@ -57,9 +57,9 @@ kodu ¼ród³owego.
 rm -f missing ltmain.sh ltconfig
 %{__gettextize}
 %{__libtoolize}
-aclocal
+%{__aclocal}
 automake -a
-autoheader
+%{__autoheader}
 %{__autoconf}
 %configure \
 	--without-included-gettext
