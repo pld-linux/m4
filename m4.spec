@@ -5,17 +5,17 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4n
-Release:	5
+Release:	6
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 # Source0-md5:	ade5506c8219f2375bba85f8fa86bab7
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-format_string_fix.patch
-Patch2:		%{name}-ac250.patch
-Patch3:		%{name}-ac.patch
-Patch4:		%{name}-po-fix.patch
+Patch1:		%{name}-ac250.patch
+Patch2:		%{name}-ac.patch
+Patch3:		%{name}-po-fix.patch
+Patch4:		%{name}-fixes-1.4.1.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -58,7 +58,6 @@ kodu ¼ród³owego.
 %patch4 -p1
 
 %build
-rm -f missing ltmain.sh ltconfig
 %{__gettextize}
 %{__libtoolize}
 %{__aclocal}
