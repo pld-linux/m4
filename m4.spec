@@ -78,10 +78,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/m4
 %{_infodir}/m4*
 %{_mandir}/man1/*
-
-%changelog
-* Sat May 29 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [1.4n-6]
-- based on RH spec,
-- spec rewrited by PLD team,
-- pl translation Wojtek ¦lusarczyk <wojtek@shadow.eu.org>.
