@@ -10,7 +10,7 @@ diff -Nru m4-1.4n/doc/m4.texinfo m4-1.4n.new/doc/m4.texinfo
 -END-INFO-DIR-ENTRY
 +@dircategory Miscellaneous:
 +@direntry
-+* m4: (m4)				A powerful macro processor
++* m4: (m4).				A powerful macro processor
 +@end direntry
  @end format
  @end ifinfo
