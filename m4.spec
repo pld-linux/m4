@@ -3,12 +3,11 @@ Summary(de): GNU-Makro-Prozessor
 Summary(fr): Processeur de macros de GNU
 Summary(tr): GNU Makro Ýþlemcisi
 Name:        m4
-Version:     1.4
-Release:     11
+Version:     1.4k
+Release:     1
 Copyright:   GPL
 Group:       Utilities/Text
-Source:      ftp://prep.ai.mit.edu:/pub/gnu/%{name}-%{version}.tar.gz
-Patch:       m4-1.4-glibc.patch
+Source:      ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 Buildroot:   /tmp/%{name}-%{version}-root
 Prereq:      /sbin/install-info
 
@@ -28,14 +27,11 @@ textes devant etre parcourues logiquement. De nombreux programmes
 l'utilisent lors de leur processus de construction.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
 %setup -q
-%patch -p1
 
 %build
-./configure --prefix=/usr
-make CFLAGS="$RPM_OPT_FLAGS" LDFLAGS=-s
+CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" ./configure --prefix=/usr
+make
 
 %install
 ./configure --prefix=$RPM_BUILD_ROOT/usr
@@ -59,8 +55,23 @@ rm -rf $RPM_BUILD_ROOT
 %doc NEWS README
 %attr(755, root, root) /usr/bin/m4
 /usr/info/*
+%lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
+%lang(fr) /usr/share/locale/fr/LC_MESSAGES/m4.mo
+%lang(it) /usr/share/locale/it/LC_MESSAGES/m4.mo
+%lang(ja) /usr/share/locale/ja/LC_MESSAGES/m4.mo
+%lang(nl) /usr/share/locale/nl/LC_MESSAGES/m4.mo
+%lang(pl) /usr/share/locale/pl/LC_MESSAGES/m4.mo
+%lang(ru) /usr/share/locale/ru/LC_MESSAGES/m4.mo
+%lang(sv) /usr/share/locale/sv/LC_MESSAGES/m4.mo
 
 %changelog
+* Thu Nov 12 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.4k-1]
+- changed base Source URL,
+- changed way passing $RPM_OPT_FLAGS and LDFLAGS,
+- cosmetic canges in %prep
+- added .mo files with %lang macros in %files.
+
 * Mon Aug 31 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.4-11]
 - added -q %setup parameter,
