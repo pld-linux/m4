@@ -9,15 +9,6 @@
  AC_INIT(src/m4.c)
  AM_CONFIG_HEADER(config.h)
  AC_ARG_PROGRAM
-@@ -121,7 +121,7 @@
- AM_WITH_GMP
- 
- AM_WITH_DMALLOC
--AM_GNU_GETTEXT
-+AM_GNU_GETTEXT([external])
- 
- if test "$USE_INCLUDED_LIBINTL" = yes; then
-   INTLINCL='-I$(top_srcdir)/intl'
 @@ -134,18 +134,10 @@
  
  dnl AC_LINK_FILES($nls_cv_header_libgt, $nls_cv_header_intl)
