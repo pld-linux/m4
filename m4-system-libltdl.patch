@@ -1,0 +1,42 @@
+--- m4-1.4o/src/Makefile.am.wiget	Mon Jan 10 04:05:22 2000
++++ m4-1.4o/src/Makefile.am	Mon Jan 10 18:49:10 2000
+@@ -10,7 +10,7 @@
+ 
+ bin_PROGRAMS = m4
+ 
+-INCLUDES = -I$(top_srcdir)/libltdl -I$(top_srcdir)/lib @INTLINCL@
++INCLUDES = -I$(top_srcdir)/lib @INTLINCL@
+ 
+ m4_SOURCES = m4.c m4.h builtin.c builtin.h debug.c eval.c evalmp.c \
+ 	format.c freeze.c input.c macro.c output.c path.c symtab.c \
+@@ -18,7 +18,7 @@
+ 
+ EXTRA_m4_SOURCES = numb.c numb.h
+ 
+-m4_LDADD = ../libltdl/libltdlc.la ../lib/libm4.a @INTLLIBS@
++m4_LDADD = -lltdl ../lib/libm4.a @INTLLIBS@
+ m4_LDFLAGS = @DLLDFLAGS@
+ 
+ path.o: path.c pathconf.h
+--- m4-1.4o/configure.in.wiget	Mon Jan 10 04:05:25 2000
++++ m4-1.4o/configure.in	Mon Jan 10 18:49:10 2000
+@@ -15,7 +15,7 @@
+ pkglibexecdir='${libexecdir}'/$PACKAGE
+ AC_SUBST(pkglibexecdir)
+ 
+-AC_CONFIG_SUBDIRS(libltdl)
++dnl OCAC_CONFIG_SUBDIRS(libltdl)
+ AC_LIBLTDL_CONVENIENCE
+ 
+ AC_PROG_AWK
+--- m4-1.4o/Makefile.am.wiget	Wed Nov 10 21:53:35 1999
++++ m4-1.4o/Makefile.am	Mon Jan 10 18:53:20 2000
+@@ -8,7 +8,7 @@
+ 	ltconfig ltmain.sh missing mkinstalldirs stamp-h.in \
+ 	po/cat-id-tbl.c po/m4.pot po/stamp-cat-id
+ 
+-SUBDIRS =      acm4 intl po lib libltdl src doc tests examples @MODULES_DIR@
++SUBDIRS =      acm4 intl po lib src doc tests examples @MODULES_DIR@
+ DIST_SUBDIRS = acm4 intl po lib libltdl src doc tests examples modules
+ 
+ # Tag before making distribution.  Also, don't make a distribution if
