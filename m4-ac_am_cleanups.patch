@@ -1,14 +1,7 @@
---- m4-1.4ppre2/configure.in.orig	Sun Jan 16 17:28:03 2000
-+++ m4-1.4ppre2/configure.in	Fri Apr  4 05:53:47 2003
-@@ -2,19 +2,12 @@
- # Copyright (C) 1991-2000 Free Software Foundation, Inc.
- # Process this file with autoconf to produce a configure script.
- 
--undefine([changeword])
--
- AC_INIT(src/m4.c)
- AM_CONFIG_HEADER(config.h)
- AC_ARG_PROGRAM
+diff -Naur m4-1.4ppre2.orig/configure.in m4-1.4ppre2/configure.in
+--- m4-1.4ppre2.orig/configure.in	Sun Jan 16 17:28:03 2000
++++ m4-1.4ppre2/configure.in	Thu Apr 10 14:20:54 2003
+@@ -10,11 +10,6 @@
  
  AM_INIT_AUTOMAKE(m4,1.4ppre2)
  
@@ -20,7 +13,7 @@
  AC_PROG_AWK
  AC_PROG_CC
  AC_PROG_INSTALL
-@@ -57,14 +50,21 @@
+@@ -57,14 +52,21 @@
  AC_FUNC_VPRINTF
  AC_REPLACE_FUNCS(strtol xmalloc xstrdup)
  M4OBJS=
@@ -46,7 +39,7 @@
  
  AC_MSG_CHECKING(if stack overflow is detectable)
  # Code from Jim Avera <jima@netcom.com>.
-@@ -88,29 +88,33 @@
+@@ -88,29 +90,33 @@
  fi
  AC_MSG_RESULT($use_stackovf)
  if test "$use_stackovf" = yes; then
@@ -96,7 +89,7 @@
  fi], [AC_MSG_RESULT(no)])
  
  AM_WITH_MODULES
-@@ -121,37 +125,25 @@
+@@ -121,37 +127,25 @@
  AC_CHECK_FUNCS(getcwd gethostname mktime uname)
  AC_CHECK_FUNCS(setenv unsetenv putenv clearenv)
  
@@ -149,8 +142,76 @@
 +	tests/Makefile
 +	examples/Makefile],
 +	[sh $srcdir/tests/mkconfig.sh])
---- m4-1.4ppre2/src/Makefile.am.orig	Sun Jan 16 17:49:03 2000
-+++ m4-1.4ppre2/src/Makefile.am	Sat Apr  5 15:58:22 2003
+diff -Naur m4-1.4ppre2.orig/doc/Makefile.am m4-1.4ppre2/doc/Makefile.am
+--- m4-1.4ppre2.orig/doc/Makefile.am	Fri Mar 26 13:23:32 1999
++++ m4-1.4ppre2/doc/Makefile.am	Thu Apr 10 14:20:22 2003
+@@ -2,12 +2,10 @@
+ 
+ man_MANS = m4.1
+ 
+-EXTRA_DIST = helptoman.pl # $(MANS)
++EXTRA_DIST = helptoman.pl
+ 
+ MAINTAINERCLEANFILES = Makefile.in mdate-sh texinfo.tex m4.1
+ 
+-PERL = @PERL@
+-
+ %.1: helptoman.pl ../src/$*
+ 	@if test -f ../src/$*; then \
+ 	  echo "Updating the \`man' page \`$@'"; \
+diff -Naur m4-1.4ppre2.orig/lib/Makefile.am m4-1.4ppre2/lib/Makefile.am
+--- m4-1.4ppre2.orig/lib/Makefile.am	Sun Jan 16 03:17:19 2000
++++ m4-1.4ppre2/lib/Makefile.am	Thu Apr 10 14:20:22 2003
+@@ -2,13 +2,12 @@
+ AUTOMAKE_OPTIONS = gnu ../src/ansi2knr
+ MAINTAINERCLEANFILES = Makefile.in
+ 
+-LDFLAGS = -no-undefined -export-dynamic @DLLDFLAGS@
++AM_LDFLAGS = -no-undefined -export-dynamic $(DLLDFLAGS)
+ 
+-INCLUDES = @INTLINCL@
+ include_HEADERS = m4module.h m4error.h m4obstack.h m4regex.h
+ noinst_HEADERS = m4private.h
+ 
+ lib_LTLIBRARIES = libm4.la
+ libm4_la_SOURCES = m4module.c m4error.c m4obstack.c m4regex.c
+-libm4_la_LIBADD = @LTLIBOBJS@
++libm4_la_LIBADD = $(LTLIBOBJS)
+ 
+diff -Naur m4-1.4ppre2.orig/modules/Makefile.am m4-1.4ppre2/modules/Makefile.am
+--- m4-1.4ppre2.orig/modules/Makefile.am	Sun Jan 16 16:40:49 2000
++++ m4-1.4ppre2/modules/Makefile.am	Thu Apr 10 14:20:22 2003
+@@ -1,6 +1,6 @@
+ MAINTAINERCLEANFILES = Makefile.in
+ 
+-pkglibexec_LTLIBRARIES = test.la shadow.la time.la stdlib.la
++pkglib_LTLIBRARIES = test.la shadow.la time.la stdlib.la
+ 
+ EXTRA_DIST = test.m4 shadow.m4 time.m4 time2.m4 stdlib.m4 \
+ 	 $(TESTS) defs
+@@ -8,8 +8,8 @@
+ TESTS = test.test time.test shadow.test \
+ 	modpath1.test modpath2.test modpath3.test modpath4.test
+ 
+-AM_CPPFLAGS = @LIBM4_DLL_IMPORT@
+-INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/lib -I$(top_srcdir)/libltdl -I/usr/local/include @INTLINCL@
++AM_CPPFLAGS = $(LIBM4_DLL_IMPORT)
++INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/lib -I$(top_srcdir)/libltdl $(INTLINCL)
+  
+ test_la_SOURCES = test.c
+ shadow_la_SOURCES = shadow.c
+@@ -17,7 +17,7 @@
+ stdlib_la_SOURCES = stdlib.c
+ 
+ LIBS = $(top_srcdir)/lib/libm4.la
+-LDFLAGS = -no-undefined -module -avoid-version @DLLDFLAGS@
++AM_LDFLAGS = -no-undefined -module -avoid-version $(LLDFLAGS)
+ 
+ test_la_LDFLAGS = -module
+ shadow_la_LDFLAGS = -module
+diff -Naur m4-1.4ppre2.orig/src/Makefile.am m4-1.4ppre2/src/Makefile.am
+--- m4-1.4ppre2.orig/src/Makefile.am	Sun Jan 16 17:49:03 2000
++++ m4-1.4ppre2/src/Makefile.am	Thu Apr 10 14:20:22 2003
 @@ -1,31 +1,16 @@
  AUTOMAKE_OPTIONS = ansi2knr
  
@@ -191,8 +252,9 @@
 +m4_LDFLAGS = -no-undefined $(DLLDFLAGS)
 + 
 \ No newline at end of file
---- m4-1.4ppre2/src/module.c~	Fri Apr  4 05:48:27 2003
-+++ m4-1.4ppre2/src/module.c	Fri Apr  4 05:48:27 2003
+diff -Naur m4-1.4ppre2.orig/src/module.c m4-1.4ppre2/src/module.c
+--- m4-1.4ppre2.orig/src/module.c	Sun Jan 16 12:17:51 2000
++++ m4-1.4ppre2/src/module.c	Thu Apr 10 14:20:22 2003
 @@ -23,7 +23,6 @@
  
  #define MODULES_UNINITIALISED -4444
@@ -201,67 +263,3 @@
  #include "ltdl.h"
  
  #define DEBUG_MODULES  /* Define this to see runtime debug info. */
---- m4-1.4ppre2/lib/Makefile.am~	Wed Apr  2 18:51:59 2003
-+++ m4-1.4ppre2/lib/Makefile.am	Wed Apr  2 18:51:59 2003
-@@ -2,13 +2,12 @@
- AUTOMAKE_OPTIONS = gnu ../src/ansi2knr
- MAINTAINERCLEANFILES = Makefile.in
- 
--LDFLAGS = -no-undefined -export-dynamic @DLLDFLAGS@
-+AM_LDFLAGS = -no-undefined -export-dynamic $(DLLDFLAGS)
- 
--INCLUDES = @INTLINCL@
- include_HEADERS = m4module.h m4error.h m4obstack.h m4regex.h
- noinst_HEADERS = m4private.h
- 
- lib_LTLIBRARIES = libm4.la
- libm4_la_SOURCES = m4module.c m4error.c m4obstack.c m4regex.c
--libm4_la_LIBADD = @LTLIBOBJS@
-+libm4_la_LIBADD = $(LTLIBOBJS)
- 
---- m4-1.4ppre2/modules/Makefile.am~	Wed Apr  2 18:53:49 2003
-+++ m4-1.4ppre2/modules/Makefile.am	Wed Apr  2 18:53:49 2003
-@@ -1,6 +1,6 @@
- MAINTAINERCLEANFILES = Makefile.in
- 
--pkglibexec_LTLIBRARIES = test.la shadow.la time.la stdlib.la
-+pkglib_LTLIBRARIES = test.la shadow.la time.la stdlib.la
- 
- EXTRA_DIST = test.m4 shadow.m4 time.m4 time2.m4 stdlib.m4 \
- 	 $(TESTS) defs
-@@ -8,8 +8,8 @@
- TESTS = test.test time.test shadow.test \
- 	modpath1.test modpath2.test modpath3.test modpath4.test
- 
--AM_CPPFLAGS = @LIBM4_DLL_IMPORT@
--INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/lib -I$(top_srcdir)/libltdl -I/usr/local/include @INTLINCL@
-+AM_CPPFLAGS = $(LIBM4_DLL_IMPORT)
-+INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/lib -I$(top_srcdir)/libltdl $(INTLINCL)
-  
- test_la_SOURCES = test.c
- shadow_la_SOURCES = shadow.c
-@@ -17,7 +17,7 @@
- stdlib_la_SOURCES = stdlib.c
- 
- LIBS = $(top_srcdir)/lib/libm4.la
--LDFLAGS = -no-undefined -module -avoid-version @DLLDFLAGS@
-+AM_LDFLAGS = -no-undefined -module -avoid-version $(LLDFLAGS)
- 
- test_la_LDFLAGS = -module
- shadow_la_LDFLAGS = -module
---- m4-1.4ppre2/doc/Makefile.am~	Wed Apr  2 18:54:39 2003
-+++ m4-1.4ppre2/doc/Makefile.am	Wed Apr  2 18:54:39 2003
-@@ -2,12 +2,10 @@
- 
- man_MANS = m4.1
- 
--EXTRA_DIST = helptoman.pl # $(MANS)
-+EXTRA_DIST = helptoman.pl
- 
- MAINTAINERCLEANFILES = Makefile.in mdate-sh texinfo.tex m4.1
- 
--PERL = @PERL@
--
- %.1: helptoman.pl ../src/$*
- 	@if test -f ../src/$*; then \
- 	  echo "Updating the \`man' page \`$@'"; \
