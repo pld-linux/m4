@@ -5,7 +5,7 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4n
-Release:	6
+Release:	7
 Copyright:	GPL
 Group:		Utilities/Text
 Group(pl):	Narzêdzia/Tekst
@@ -61,7 +61,7 @@ gzip -9fn $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
 %post
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%preun
+%postun
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %clean
