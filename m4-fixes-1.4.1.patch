@@ -27,13 +27,18 @@ with NLS added to maketemp change in builtin.c.
 	* src/builtin.c (m4_maketemp): Implement the above, by using
 	mkstemp rather than mktemp.  (trivial change)
 
+2000-01-09  Akim Demaille  <demaille@inf.enst.fr>
+
+	* src/builtin.c (expand_ranges): Added break after trailing dash.
+	This caused misbehaviors on some systems.
+
 [NEWS]
 * maketemp now creates an empty file with the given name, instead of merely
   returning the name of a nonexistent file.  This closes a security hole.
 
---- m4-1.4ppre2/src/m4.c.orig	Sun Jan 16 16:11:05 2000
-+++ m4-1.4ppre2/src/m4.c	Fri Jul 16 13:09:59 2004
-@@ -405,7 +405,7 @@
+--- m4-1.4n/src/m4.c.orig	Sun Nov 29 04:01:58 1998
++++ m4-1.4n/src/m4.c	Fri Jul 16 14:21:09 2004
+@@ -402,7 +402,7 @@
  
        case 'o':
  	if (!debug_set_output (optarg))
@@ -42,42 +47,56 @@ with NLS added to maketemp change in builtin.c.
  	break;
  
        case 's':
-@@ -541,7 +541,7 @@
+@@ -532,7 +532,7 @@
  	    fp = path_search (argv[optind], &filename);
  	    if (fp == NULL)
  	      {
 -		error (0, errno, argv[optind]);
 +		error (0, errno, "%s", argv[optind]);
- 		exit_status = EXIT_FAILURE;
  		continue;
  	      }
---- m4-1.4ppre2/src/builtin.c.orig	Sun Jan 16 03:17:41 2000
-+++ m4-1.4ppre2/src/builtin.c	Fri Jul 16 13:18:18 2004
+ 	    else
+--- m4-1.4n/src/builtin.c.orig	Sun Nov 29 04:03:04 1998
++++ m4-1.4n/src/builtin.c	Fri Jul 16 14:18:09 2004
 @@ -1,5 +1,7 @@
  /* GNU m4 -- A simple macro processor
--   Copyright (C) 1989, 90, 91, 92, 93, 94, 98, 99, 2000 Free Software Foundation, Inc.
-+
-+   Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000
-+   Free Software Foundation, Inc.
+-   Copyright (C) 1989, 90, 91, 92, 93, 94, 98 Free Software Foundation, Inc.
++ *
++   Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 2000 Free
++   Software Foundation, Inc.
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
-@@ -1286,8 +1288,14 @@
+@@ -1269,9 +1271,15 @@
  static void
  m4_maketemp (struct obstack *obs, int argc, token_data **argv)
  {
 +  int fd;
-   if (m4_bad_argc (argv[0], argc, 2, 2))
+   if (bad_argc (argv[0], argc, 2, 2))
      return;
--  mktemp (M4ARG (1));
-+  if ((fd = mkstemp (M4ARG (1))) < 0)
+-  mktemp (ARG (1));
++  if ((fd = mkstemp (ARG (1))) < 0)
 +    {
-+      M4ERROR ((warning_status, errno, _("Cannot create tempfile %s"), M4ARG (1)));
++      M4ERROR ((warning_status, errno, _("Cannot create tempfile %s"), ARG (1)));
 +      return;
 +    }
 +  close(fd);
-   m4_shipout_string (obs, M4ARG (1), 0, FALSE);
+   shipout_string (obs, ARG (1), 0, FALSE);
  }
+ 
+@@ -1576,7 +1584,11 @@
+ 	{
+ 	  to = *++s;
+ 	  if (to == '\0')
+-	    obstack_1grow (obs, '-'); /* trailing dash */
++	    {
++	      /* trailing dash */
++	      obstack_1grow (obs, '-');
++	      break;
++	    }
+ 	  else if (from <= to)
+ 	    {
+ 	      while (from++ < to)
 --- m4-1.4ppre2/src/output.c.orig	Sun Jan 16 03:17:41 2000
 +++ m4-1.4ppre2/src/output.c	Fri Jul 16 13:15:36 2004
 @@ -532,12 +532,12 @@
@@ -119,19 +138,19 @@ with NLS added to maketemp change in builtin.c.
  
        SYMBOL_NEXT (sym) = *spp;
        (*spp) = sym;
---- m4-1.4ppre2/doc/m4.texinfo.orig	Fri Jul 16 13:09:59 2004
-+++ m4-1.4ppre2/doc/m4.texinfo	Fri Jul 16 13:25:08 2004
-@@ -17,7 +17,8 @@
+--- m4-1.4n/doc/m4.texinfo.orig	Fri Jul 16 14:14:53 2004
++++ m4-1.4n/doc/m4.texinfo	Fri Jul 16 14:21:44 2004
+@@ -21,7 +21,8 @@
  @ifinfo
  This file documents the GNU @code{m4} utility.
  
--Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000 Free Software Foundation, Inc.
-+Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000,
-+2004 Free Software Foundation, Inc.
+-Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998 Free Software Foundation, Inc.
++Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 2004 Free
++Software Foundation, Inc.
  
  Permission is granted to make and distribute verbatim copies of
  this manual provided the copyright notice and this permission notice
-@@ -3479,7 +3480,7 @@
+@@ -3447,7 +3448,7 @@
  @end example
  
  @noindent
@@ -140,7 +159,7 @@ with NLS added to maketemp change in builtin.c.
  @var{template}, which should end with the string @samp{XXXXXX}.  The six
  @code{X}'s are then replaced, usually with something that includes the
  process id of the @code{m4} process, in order to make the file name unique.
-@@ -3488,15 +3489,8 @@
+@@ -3456,15 +3457,8 @@
  @example
  maketemp(`/tmp/fooXXXXXX')
  @result{}/tmp/fooa07346
@@ -156,17 +175,17 @@ with NLS added to maketemp change in builtin.c.
  The builtin macro @code{maketemp} is recognized only when given
  arguments.
  
---- m4-1.4ppre2/po/pl.po.orig	Fri Jul 16 13:09:59 2004
-+++ m4-1.4ppre2/po/pl.po	Fri Jul 16 13:29:12 2004
-@@ -205,6 +205,11 @@
+--- m4-1.4n/po/pl.po.orig	Sun Nov 29 16:29:11 1998
++++ m4-1.4n/po/pl.po	Fri Jul 16 14:23:14 2004
+@@ -88,6 +88,11 @@
  msgid "Cannot open %s"
  msgstr "Nie mogê otworzyæ %s"
  
-+#: src/builtin.c:1296
++#: src/builtin.c:1279
 +#, c-format
 +msgid "Cannot create tempfile %s"
 +msgstr "Nie mo¿na utworzyæ pliku tymczasowego %s"
 +
- #: src/builtin.c:1460
+ #: src/builtin.c:1443
  #, c-format
  msgid "Debugmode: bad debug flags: `%s'"
