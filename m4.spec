@@ -11,6 +11,7 @@ Epoch:		2
 License:	GPL
 Group:		Applications/Text
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
+# Source0-md5: a40e0a64e0c0128e38b7e4892beba2cb
 Patch0:		%{name}-ac_am_cleanups.patch
 Patch1:		%{name}-format_string_fix.patch
 Patch2:		%{name}-info.patch
