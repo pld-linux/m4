@@ -5,16 +5,19 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4n
-Release:	4
+Release:	5
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
 Group(pl):	Aplikacje/Tekst
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
+# Source0-md5:	ade5506c8219f2375bba85f8fa86bab7
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-format_string_fix.patch
 Patch2:		%{name}-ac250.patch
+Patch3:		%{name}-ac.patch
+Patch4:		%{name}-po-fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
 BuildRequires:	libltdl-devel
@@ -23,7 +26,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_libexecdir	%{_libdir}
 
 %description
-A GNU implementation of the traditional UNIX macro processor. M4 is
+A GNU implementation of the traditional UNIX macro processor. m4 is
 useful for writing text files which can be logically parsed, and is
 used by many programs as part of their build process. M4 has built-in
 functions for including files, running shell commands, doing
@@ -47,10 +50,12 @@ parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
 kodu ¼ród³owego.
 
 %prep
-%setup  -q
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 rm -f missing ltmain.sh ltconfig
@@ -69,8 +74,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf NEWS README
-
 %find_lang %{name}
 
 %post
@@ -84,10 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *.gz
-
+%doc AUTHORS NEWS README THANKS
 %attr(755,root,root) %{_bindir}/m4
-
 %{_datadir}/m4
 %{_infodir}/m4*
 %{_mandir}/man1/*
