@@ -59,12 +59,12 @@ kodu ¼ród³owego.
 
 %build
 rm -f missing ltmain.sh ltconfig
-gettextize --copy --force
-libtoolize --copy --force
-aclocal
-automake -a
-autoheader
-autoconf
+%{__gettextize}
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+%{__autoheader}
 %configure \
 	--without-included-gettext
 %{__make}
@@ -72,7 +72,8 @@ autoconf
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 
