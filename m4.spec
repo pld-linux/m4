@@ -11,14 +11,19 @@ Group:		Utilities/Text
 Group(pl):	Narzêdzia/Tekst
 Source:		ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 Patch0:		m4-info.patch
+Patch1:		m4-autoconf.patch
 URL:		http://www.seindal.dk/rene/gnu/
+BuildRequires:	gettext-devel
 Prereq:		/usr/sbin/fix-info-dir
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %description
-This is the GNU Macro processing language. It is useful for writing text
-files that can be parsed logically. Many programs use it as part of their
-build process.
+A GNU implementation of the traditional UNIX macro processor. M4 is useful
+for writing text files which can be logically parsed, and is used by many
+programs as part of their build process. M4 has built-in functions for
+including files, running shell commands, doing arithmetic, etc. The
+autoconf program needs m4 for generating configure scripts, but not for
+running configure scripts.
 
 %description -l de
 Dies ist die GNU-Makroverarbeitungssprache. Es ist zum Schreiben von
@@ -36,22 +41,24 @@ jest do tworzenia plików tekstowych, które mog± byæ logicznie parsowane.
 Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
 
 %prep
-%setup -q
-%patch -p1
+%setup  -q
+%patch0 -p1
+%patch1 -p1
 
 %build
+aclocal
 autoconf
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure %{_target_platform} \
-	--prefix=%{_prefix} \
+automake
+gettextize --copy --force
+LDFLAGS="-s"; export LDFLAGS
+%configure \
 	--without-included-gettext
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install \
-	prefix=$RPM_BUILD_ROOT%{_prefix}
+make install DESTDIR=$RPM_BUILD_ROOT
 
 gzip -9fn $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
 	NEWS README
