@@ -4,26 +4,26 @@ Summary(fr):	Processeur de macros de GNU
 Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
-Version:	1.4p
-%define		_pre	pre2
-Release:	0.%{_pre}.10
+Version:	1.4q
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
-Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
-# Source0-md5: a40e0a64e0c0128e38b7e4892beba2cb
-Patch0:		%{name}-ac_am_cleanups.patch
-Patch1:		%{name}-info.patch
-Patch2:		%{name}-pl.po-update.patch
-Patch3:		%{name}-po-fix.patch
-Patch4:		%{name}-fixes-1.4.1.patch
+#Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
+Source0:	http://www.lrde.epita.fr/~akim/download/%{name}-%{version}.tar.bz2
+# Source0-md5:	de5ffda17f317b12272286ea93c9f2c0
+Patch0:		%{name}-info.patch
+Patch1:		%{name}-pl.po-update.patch
+Patch2:		%{name}-po-fix.patch
+Patch3:		%{name}-fixes-1.4.1.patch
 URL:		http://www.seindal.dk/rene/gnu/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	autoconf >= 2.54
+BuildRequires:	automake >= 1.7.1
+BuildRequires:	gettext-devel >= 0.11.5
 BuildRequires:	gmp-devel
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	perl-devel
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -79,30 +79,29 @@ Static m4 library.
 Statyczna biblioteka m4.
 
 %prep
-%setup -q -n %{name}-%{version}%{_pre}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
+
+rm -f config/{libtool,ltdl}.m4
 
 %build
-rm -f acm4/ltdl.m4
 %{__gettextize}
 %{__libtoolize}
-%{__aclocal} -I acm4
+%{__aclocal} -I config
 %{__autoheader}
 %{__autoconf}
 %{__automake}
 %configure \
+	PACKAGE=m4 \
 	--disable-ltdl-install \
 	--disable-rpath \
-	--enable-changeword \
 	--enable-static \
 	--with-gmp \
 	--with-modules \
-	%{!?debug:--without-dmalloc} \
-	--without-included-gettext
+	%{!?debug:--without-dmalloc}
 
 %{__make}
 
@@ -120,12 +119,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/m4/*.a
 rm -rf $RPM_BUILD_ROOT
 
 %post
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 /sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %postun
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 /sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -133,7 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/m4
 %attr(755,root,root) %{_libdir}/libm4.so.*.*
 %dir %{_libdir}/m4
-%attr(755,root,root) %{_libdir}/m4/*.so
+%attr(755,root,root) %{_libdir}/m4/*.so*
 %{_libdir}/m4/*.la
 %{_datadir}/m4
 %{_infodir}/m4*
