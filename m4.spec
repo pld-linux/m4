@@ -4,17 +4,21 @@ Summary(fr):	Processeur de macros de GNU
 Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
-Version:	1.4n
-Release:	7
+Version:	1.4o
+Release:	1
 Copyright:	GPL
 Group:		Utilities/Text
 Group(pl):	Narzêdzia/Tekst
 Source:		ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 Patch0:		m4-info.patch
+Patch1:		m4-system-libltdl.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
+BuildRequires:	gmp-devel
 Prereq:		/usr/sbin/fix-info-dir
 Buildroot:	/tmp/%{name}-%{version}-root
+
+%define		_libexecdir	%{_libdir}
 
 %description
 A GNU implementation of the traditional UNIX macro processor. M4 is useful
@@ -41,13 +45,20 @@ Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
 
 %prep
 %setup  -q
-%patch0 -p1
+#%patch0 -p1
+%patch1 -p1 -b .wiget
 
 %build
+cp aclocal.m4 acinclude.m4
 gettextize --copy --force
+aclocal
+automake
+autoconf
 LDFLAGS="-s"; export LDFLAGS
 %configure \
-	--without-included-gettext
+	--without-included-gettext \
+	--with-modules \
+	--with-gmp
 make
 
 %install
@@ -78,3 +89,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/m4
 %{_infodir}/m4*
 %{_mandir}/man1/*
+
+%attr(755,root,root) %{_libexecdir}/m4/*.so
