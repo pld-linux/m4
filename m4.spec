@@ -103,7 +103,7 @@ rm -f acm4/ltdl.m4
 	--with-modules \
 	%{!?debug:--without-dmalloc} \
 	--without-included-gettext
-	
+
 %{__make}
 
 %install
