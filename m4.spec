@@ -16,7 +16,7 @@ URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
 BuildRequires:	gmp-devel
 Prereq:		/usr/sbin/fix-info-dir
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libexecdir	%{_libdir}
 
