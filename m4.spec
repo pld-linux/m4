@@ -46,11 +46,7 @@ Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
 %patch0 -p1
 
 %build
-cp aclocal.m4 acinclude.m4
 gettextize --copy --force
-aclocal
-automake
-autoconf
 LDFLAGS="-s"; export LDFLAGS
 %configure \
 	--without-included-gettext
