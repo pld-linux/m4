@@ -67,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) /usr/bin/m4
+%attr(755,root,root) %{_bindir}/m4
 %{_datadir}/m4
 
 %{_infodir}/m4*
