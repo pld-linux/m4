@@ -9,7 +9,7 @@ Copyright:   GPL
 Group:       Utilities/Text
 Source:      ftp://prep.ai.mit.edu:/pub/gnu/%{name}-%{version}.tar.gz
 Patch:       m4-1.4-glibc.patch
-Buildroot:   /tmp/m4-root
+Buildroot:   /tmp/%{name}-%{version}-root
 Prereq:      /sbin/install-info
 
 %description
