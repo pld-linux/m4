@@ -58,7 +58,7 @@ LDFLAGS="-s"; export LDFLAGS
 	--without-included-gettext \
 	--with-modules \
 	--with-gmp
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
