@@ -60,7 +60,7 @@ libtoolize --copy --force
 aclocal
 automake -a
 autoheader
-autoconf
+%{__autoconf}
 %configure \
 	--without-included-gettext
 %{__make}
