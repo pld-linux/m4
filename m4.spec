@@ -5,7 +5,7 @@ Summary(pl):	GNU procesor j瞛yka makrodefinicji
 Summary(tr):	GNU Makro毼lemcisi
 Name:		m4
 Version:	1.4n
-Release:	5
+Release:	6
 Copyright:	GPL
 Group:		Utilities/Text
 Group(pl):	Narz璠zia/Tekst
@@ -42,20 +42,21 @@ Wiele program闚 korzysta z m4 podczas procesu kompilacji kodu 廝鏚這wego.
 %build
 autoconf
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-    ./configure \
+./configure %{_target} \
 	--prefix=%{_prefix} \
-	--without-included-gettext \
-	%{_target_platform}
+	--without-included-gettext
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make \
-    install \
-    prefix=$RPM_BUILD_ROOT%{_prefix}
+make install \
+	prefix=$RPM_BUILD_ROOT%{_prefix}
 
-gzip -9fn $RPM_BUILD_ROOT/usr/share/{info/*,man/man1/*} NEWS README
+gzip -9fn $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
+	NEWS README
+
+%find_lang m4
 
 %post
 /sbin/install-info %{_infodir}/m4.info.gz /etc/info-dir
@@ -68,7 +69,7 @@ fi
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f m4.lang
 %defattr(644,root,root,755)
 %doc {NEWS,README}.gz
 
@@ -78,65 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/m4*
 %{_mandir}/man1/*
 
-%lang(de) %{_datadir}/locale/de/LC_MESSAGES/m4.mo
-%lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/m4.mo
-%lang(it) %{_datadir}/locale/it/LC_MESSAGES/m4.mo
-%lang(ja) %{_datadir}/locale/ja/LC_MESSAGES/m4.mo
-%lang(nl) %{_datadir}/locale/nl/LC_MESSAGES/m4.mo
-%lang(pl) %{_datadir}/locale/pl/LC_MESSAGES/m4.mo
-%lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/m4.mo
-%lang(sv) %{_datadir}/locale/sv/LC_MESSAGES/m4.mo
-
 %changelog
-* Sun May 23 1999 Wojtek 奸usarczyk <wojtek@shadow.eu.org>
-  [1.4n-5]
-- more macros in use,
-- calling autoconf,
-- compressed %doc.
-
-* Wed Mar 10 1999 Tomasz K這czko <kloczek@rudy.mif.pg.gda.pl>
-  [1.4n-3]
-- added Group(pl),
-- removed man group from man pages.
-
-* Sun Jan 03 1999 Tomasz K這czko <kloczek@rudy.mif.pg.gda.pl>
-  [1.4n-2]
-- standarized {un}registering info pages (added m4-info.patch),
-- added --without-included-gettext to configure parameters,
-- added gzipping man pages.
-
-* Sat Nov 21 1998 Tomasz K這czko <kloczek@rudy.mif.pg.gda.pl>
-  [1.4m-1]
-- added URL,
-- fixed: removed %{_infodir}/dir from %files.
-- added m4 man page to %files,
-- cosmetic changes in %post, %preun in {un}installing m4 info page,
-- added %{_datadir}/m4 to %files.
-
-* Thu Nov 12 1998 Tomasz K這czko <kloczek@rudy.mif.pg.gda.pl>
-  [1.4k-1]
-- changed base Source URL,
-- siplification in %install,
-- changed way passing $RPM_OPT_FLAGS and LDFLAGS,
-- cosmetic canges in %prep
-- added .mo files with %lang macros in %files.
-
-* Mon Sep 28 1998 Wojtek 奸usarczyk <wojtek@shadow.eu.org>
-  [1.4-11d]
-- build against PLD Tornado,
-- macro %%{name}-%%{version} in Patch,
-- CFLAGS=$RPM_OPT_FLAGS & LDFLAGS=-s before ./configure,
-- transaltion modified for pl,
-
-  translation fixed by Adam Kozubowicz <tapir@interdata.com.pl>
-
-- fixed files permissions.
-
-* Mon Aug 31 1998 Tomasz K這czko <kloczek@rudy.mif.pg.gda.pl>
-  [1.4-11]
-- added -q %setup parameter,
-- changed Buildroot to /tmp/%%{name}-%%{version}-root,
-- added using %%{name} and %%{version} in Source,
-- added %attr and %defattr macros in %files (allows build package from
-  non-root account),
-- start at RH spec file.
+* Sat May 29 1999 Tomasz K這czko <kloczek@rudy.mif.pg.gda.pl>
+  [1.4n-6]
+- based on RH spec,
+- spec rewrited by PLD team,
+- pl translation Wojtek 奸usarczyk <wojtek@shadow.eu.org>.
