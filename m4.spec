@@ -4,15 +4,15 @@ Summary(fr):	Processeur de macros de GNU
 Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
-Version:	1.4n
-Release:	4
+Version:	1.4p
+Release:	0.1pre2
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
-Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
-Patch0:		%{name}-info.patch
-Patch1:		%{name}-format_string_fix.patch
-Patch2:		%{name}-ac250.patch
+Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}pre2.tar.gz
+Patch0:		%{name}-ac.patch
+Patch1:		%{name}-ld.patch
+Patch2:		%{name}-format_string_fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -48,19 +48,22 @@ parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
 kodu ¼ród³owego.
 
 %prep
-%setup  -q
+%setup  -q -n m4-1.4ppre2
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
 %build
-rm -f missing ltmain.sh ltconfig
+rm -f missing ltmain.sh ltconfig aclocal.m4 acm4/regex.m4 acm4/ltdl.m4
 %{__gettextize}
+if [ -f po/Makevars.template ]; then
+	mv po/Makevars.template po/Makevars
+fi
 %{__libtoolize}
-%{__aclocal}
-automake -a
+%{__aclocal} -I acm4
 %{__autoheader}
 %{__autoconf}
+%{__automake}
 %configure \
 	--without-included-gettext
 %{__make}
@@ -69,8 +72,6 @@ automake -a
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-
-gzip -9nf NEWS README
 
 %find_lang %{name}
 
@@ -85,7 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *.gz
+%doc NEWS README
 
 %attr(755,root,root) %{_bindir}/m4
 
