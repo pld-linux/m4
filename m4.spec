@@ -68,19 +68,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc NEWS README
 %attr(755,root,root) /usr/bin/m4
-/usr/share/m4
+%{_datadir}/m4
 
 %{_infodir}/m4*
 %{_mandir}/man1/*
 
-%lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
-%lang(fr) /usr/share/locale/fr/LC_MESSAGES/m4.mo
-%lang(it) /usr/share/locale/it/LC_MESSAGES/m4.mo
-%lang(ja) /usr/share/locale/ja/LC_MESSAGES/m4.mo
-%lang(nl) /usr/share/locale/nl/LC_MESSAGES/m4.mo
-%lang(pl) /usr/share/locale/pl/LC_MESSAGES/m4.mo
-%lang(ru) /usr/share/locale/ru/LC_MESSAGES/m4.mo
-%lang(sv) /usr/share/locale/sv/LC_MESSAGES/m4.mo
+%lang(de) %{_datadir}/locale/de/LC_MESSAGES/m4.mo
+%lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/m4.mo
+%lang(it) %{_datadir}/locale/it/LC_MESSAGES/m4.mo
+%lang(ja) %{_datadir}/locale/ja/LC_MESSAGES/m4.mo
+%lang(nl) %{_datadir}/locale/nl/LC_MESSAGES/m4.mo
+%lang(pl) %{_datadir}/locale/pl/LC_MESSAGES/m4.mo
+%lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/m4.mo
+%lang(sv) %{_datadir}/locale/sv/LC_MESSAGES/m4.mo
 
 %changelog
 * Wed Mar 10 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
@@ -101,7 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 - fixed: removed %{_infodir}/dir from %files.
 - added m4 man page to %files,
 - cosmetic changes in %post, %preun in {un}installing m4 info page,
-- added /usr/share/m4 to %files.
+- added %{_datadir}/m4 to %files.
 
 * Thu Nov 12 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.4k-1]
