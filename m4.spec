@@ -15,12 +15,17 @@ Patch0:		%{name}-ac.patch
 Patch1:		%{name}-ld.patch
 Patch2:		%{name}-format_string_fix.patch
 Patch3:		%{name}-ltdl.patch
+Patch4:		%{name}-info.patch
+Patch5:		%{name}-pl.po-update.patch
+Patch6:		%{name}-po-fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	gettext-devel
 BuildRequires:	libltdl-devel
+BuildRequires:	texinfo
+Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libexecdir	%{_libdir}
@@ -51,17 +56,27 @@ kodu ¼ród³owego.
 
 %package devel
 Summary:	Files to develop application with embedded m4 interpreter
+Summary(pl):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
 Group:		Development/Libraries
+Requires:	%{name} = %{version}
 
 %description devel
 Files to develop application with embedded m4 interpreter.
 
+%description devel -l pl
+Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
+
 %package static
-Summary:	Files to develop application with embedded m4 interpreter
+Summary:	Static m4 library
+Summary(pl):	Statyczna biblioteka m4
 Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}
 
 %description static
-Files to develop application with embedded m4 interpreter.
+Static m4 library.
+
+%description static -l pl
+Statyczna biblioteka m4.
 
 %prep
 %setup  -q -n %{name}-%{version}%{_pre}
@@ -69,6 +84,9 @@ Files to develop application with embedded m4 interpreter.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 rm -f missing ltmain.sh ltconfig aclocal.m4 acm4/regex.m4 acm4/ltdl.m4
@@ -126,9 +144,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/*
-%{_libdir}/libm4.so
+%attr(755,root,root) %{_libdir}/libm4.so
 %{_libdir}/libm4.la
+%{_includedir}/*
 
 %files static
 %defattr(644,root,root,755)
