@@ -56,7 +56,7 @@ make install \
 gzip -9fn $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
 	NEWS README
 
-%find_lang m4
+%find_lang %{name}
 
 %post
 /sbin/install-info %{_infodir}/m4.info.gz /etc/info-dir
@@ -69,7 +69,7 @@ fi
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f m4.lang
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc {NEWS,README}.gz
 
