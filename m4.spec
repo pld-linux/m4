@@ -41,7 +41,7 @@ Le langage de macro commande GNU. Il est utile pour constituer des
 fichiers textes devant etre parcourues logiquement. De nombreux
 programmes l'utilisent lors de leur processus de construction.
 
-%description -l pl 
+%description -l pl
 W pakiecie znajduje siê m4 - GNU procesor jêzyka makrodefinicji.
 U¿ywany jest do tworzenia plików tekstowych, które mog± byæ logicznie
 parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
