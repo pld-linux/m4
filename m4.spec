@@ -42,7 +42,7 @@ Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
 %build
 autoconf
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure %{_target} \
+./configure %{_target_platform} \
 	--prefix=%{_prefix} \
 	--without-included-gettext
 make
