@@ -4,7 +4,7 @@ Summary(fr): Processeur de macros de GNU
 Summary(pl): GNU makro procesor
 Summary(tr): GNU Makro Ýþlemcisi
 Name:        m4
-Version:     1.4m
+Version:     1.4n
 Release:     1
 Copyright:   GPL
 Group:       Utilities/Text
