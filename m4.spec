@@ -56,9 +56,6 @@ kodu ¼ród³owego.
 %build
 rm -f missing ltmain.sh ltconfig aclocal.m4 acm4/regex.m4 acm4/ltdl.m4
 %{__gettextize}
-if [ -f po/Makevars.template ]; then
-	mv po/Makevars.template po/Makevars
-fi
 %{__libtoolize}
 %{__aclocal} -I acm4
 %{__autoheader}
