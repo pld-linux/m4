@@ -18,7 +18,7 @@ Patch2:		%{name}-po-fix.patch
 Patch3:		%{name}-fixes-1.4.1.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake >= 1.7.1
+BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	gettext-devel >= 0.11.5
 BuildRequires:	gmp-devel
 BuildRequires:	libltdl-devel
