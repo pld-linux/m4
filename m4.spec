@@ -54,11 +54,11 @@ make install prefix=$RPM_BUILD_ROOT/usr
 gzip -9fn $RPM_BUILD_ROOT/usr/{info/*,man/man1/*}
 
 %post
-/sbin/install-info /usr/info/m4.info.gz /etc/info-dir
+/sbin/install-info %{_infodir}/m4.info.gz /etc/info-dir
 
 %preun
 if [ "$1" = "0" ]; then
-	/sbin/install-info --delete /usr/info/m4.info.gz /etc/info-dir
+	/sbin/install-info --delete %{_infodir}/m4.info.gz /etc/info-dir
 fi
 
 %clean
@@ -70,8 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /usr/bin/m4
 /usr/share/m4
 
-/usr/info/m4*
-/usr/man/man1/*
+%{_infodir}/m4*
+%{_mandir}/man1/*
 
 %lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
 %lang(fr) /usr/share/locale/fr/LC_MESSAGES/m4.mo
@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
   [1.4m-1]
 - added URL,
 - added pl transaltion,
-- fixed: removed /usr/info/dir from %files.
+- fixed: removed %{_infodir}/dir from %files.
 - added m4 man page to %files,
 - cosmetic changes in %post, %preun in {un}installing m4 info page,
 - added /usr/share/m4 to %files.
