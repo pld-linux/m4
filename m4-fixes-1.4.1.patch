@@ -1,22 +1,12 @@
 Forward-ported fixes from m4 1.4.1
-with NLS added to maketemp change in builtin.c.
+with NLS added to maketemp change in modules/m4.c.
 
 [ChangeLog]
-2003-09-28  Akim Demaille  <akim@epita.fr>
-
-	* src/symtab.c (lookup_symbol): Fix an uninitialized-variable
-	botch.
-
 2001-04-02  Robert Bihlmeyer  <robbe@orcus.priv.at>
 
 	http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=92629
-	* src/output.c (m4_insert_file): Do not mix buffered and
+	* m4/output.c (m4_insert_file): Do not mix buffered and
 	unbuffered I/O, as this breaks on the Hurd.  (trivial change)
-
-2001-02-01  Santiago Vila  <sanvila@debian.org>
-
-	http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=84451
-	* src/m4.c (main): Fix format vulnerabilities.  (trivial change)
 
 2001-02-01  Matt Kraai  <kraai@debian.org>
 
@@ -24,52 +14,21 @@ with NLS added to maketemp change in builtin.c.
 	* doc/m4.texinfo (Maketemp): Change maketemp to refer to a new,
 	empty file rather than to a nonexistent file.  This closes a common
 	security hole.
-	* src/builtin.c (m4_maketemp): Implement the above, by using
+	* modules/m4.c (m4_maketemp): Implement the above, by using
 	mkstemp rather than mktemp.  (trivial change)
 
 [NEWS]
 * maketemp now creates an empty file with the given name, instead of merely
   returning the name of a nonexistent file.  This closes a security hole.
 
---- m4-1.4ppre2/src/m4.c.orig	Sun Jan 16 16:11:05 2000
-+++ m4-1.4ppre2/src/m4.c	Fri Jul 16 13:09:59 2004
-@@ -405,7 +405,7 @@
- 
-       case 'o':
- 	if (!debug_set_output (optarg))
--	  error (0, errno, optarg);
-+	  error (0, errno, "%s", optarg);
- 	break;
- 
-       case 's':
-@@ -541,7 +541,7 @@
- 	    fp = path_search (argv[optind], &filename);
- 	    if (fp == NULL)
- 	      {
--		error (0, errno, argv[optind]);
-+		error (0, errno, "%s", argv[optind]);
- 		exit_status = EXIT_FAILURE;
- 		continue;
- 	      }
---- m4-1.4ppre2/src/builtin.c.orig	Sun Jan 16 03:17:41 2000
-+++ m4-1.4ppre2/src/builtin.c	Fri Jul 16 13:18:18 2004
-@@ -1,5 +1,7 @@
- /* GNU m4 -- A simple macro processor
--   Copyright (C) 1989, 90, 91, 92, 93, 94, 98, 99, 2000 Free Software Foundation, Inc.
-+
-+   Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000
-+   Free Software Foundation, Inc.
-   
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-@@ -1286,8 +1288,14 @@
- static void
- m4_maketemp (struct obstack *obs, int argc, token_data **argv)
+--- m4-1.4q/modules/m4.c.orig	2001-10-19 17:57:37.000000000 +0200
++++ m4-1.4q/modules/m4.c	2004-07-18 20:03:46.075712824 +0200
+@@ -538,7 +538,13 @@
+ /* Use the first argument as at template for a temporary file name.  */
+ M4BUILTIN_HANDLER (maketemp)
  {
-+  int fd;
-   if (m4_bad_argc (argv[0], argc, 2, 2))
-     return;
 -  mktemp (M4ARG (1));
++  int fd;
 +  if ((fd = mkstemp (M4ARG (1))) < 0)
 +    {
 +      M4ERROR ((warning_status, errno, _("Cannot create tempfile %s"), M4ARG (1)));
@@ -78,9 +37,10 @@ with NLS added to maketemp change in builtin.c.
 +  close(fd);
    m4_shipout_string (obs, M4ARG (1), 0, FALSE);
  }
---- m4-1.4ppre2/src/output.c.orig	Sun Jan 16 03:17:41 2000
-+++ m4-1.4ppre2/src/output.c	Fri Jul 16 13:15:36 2004
-@@ -532,12 +532,12 @@
+ 
+--- m4-1.4q/m4/output.c.orig	2001-10-19 17:57:37.000000000 +0200
++++ m4-1.4q/m4/output.c	2004-07-18 20:04:58.024774904 +0200
+@@ -572,12 +572,12 @@
  
    /* Insert output by big chunks.  */
  
@@ -89,58 +49,38 @@ with NLS added to maketemp change in builtin.c.
 +  while (length = fread (buffer, 1, COPY_BUFFER_SIZE, file),
  	 length != 0)
 -    if (length == (size_t) -1)
--      M4ERROR ((EXIT_FAILURE, errno, _("ERROR: Reading inserted file")));
+-      M4ERROR ((EXIT_FAILURE, errno, _("reading inserted file")));
 -    else
 -      output_text (buffer, length);
 +    output_text (buffer, length);
 +  if (errno)
-+    M4ERROR ((EXIT_FAILURE, errno, _("ERROR: Reading inserted file")));
++    M4ERROR ((EXIT_FAILURE, errno, _("reading inserted file")));
  }
  
- /*-------------------------------------------------------------------------.
---- m4-1.4ppre2/src/symtab.c.orig	Sun Jan 16 03:17:41 2000
-+++ m4-1.4ppre2/src/symtab.c	Fri Jul 16 13:17:24 2004
-@@ -1,5 +1,7 @@
- /* GNU m4 -- A simple macro processor
--   Copyright (C) 1989, 90, 91, 92, 93, 94 Free Software Foundation, Inc.
-+
-+   Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 2003 Free
-+   Software Foundation, Inc.
-   
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-@@ -149,6 +151,9 @@
-       SYMBOL_TYPE (sym) = TOKEN_VOID;
-       SYMBOL_TRACED (sym) = SYMBOL_SHADOWED (sym) = FALSE;
-       SYMBOL_NAME (sym) = xstrdup (name);
-+      SYMBOL_SHADOWED (sym) = FALSE;
-+      SYMBOL_MACRO_ARGS (sym) = FALSE;
-+      SYMBOL_BLIND_NO_ARGS (sym) = FALSE;
- 
-       SYMBOL_NEXT (sym) = *spp;
-       (*spp) = sym;
---- m4-1.4ppre2/doc/m4.texinfo.orig	Fri Jul 16 13:09:59 2004
-+++ m4-1.4ppre2/doc/m4.texinfo	Fri Jul 16 13:25:08 2004
-@@ -17,7 +17,8 @@
+ /* Insert diversion number DIVNUM into the current output file.  The
+--- m4-1.4q/doc/m4.texinfo.orig	2004-07-18 19:58:26.579283664 +0200
++++ m4-1.4q/doc/m4.texinfo	2004-07-18 20:07:08.988865336 +0200
+@@ -22,8 +22,8 @@
  @ifinfo
- This file documents the GNU @code{m4} utility.
+ This file documents GNU @code{m4} @value{VERSION}
  
--Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000 Free Software Foundation, Inc.
-+Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000,
+-Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000, 2001
+-Free Software Foundation, Inc.
++Copyright (C) 1989, 1990, 1991, 1992, 1993, 1994, 1998, 1999, 2000, 2001,
 +2004 Free Software Foundation, Inc.
  
- Permission is granted to make and distribute verbatim copies of
- this manual provided the copyright notice and this permission notice
-@@ -3479,7 +3480,7 @@
- @end example
+ Permission is granted to copy, distribute and/or modify this document
+ under the terms of the GNU Free Documentation License, Version 1.1
+@@ -3423,7 +3423,7 @@
  
- @noindent
--which expands to a name of a non-existent file, made from the string
-+which expands to a name of a new, empty file, made from the string
- @var{template}, which should end with the string @samp{XXXXXX}.  The six
- @code{X}'s are then replaced, usually with something that includes the
- process id of the @code{m4} process, in order to make the file name unique.
-@@ -3488,15 +3489,8 @@
+ @deffn {Builtin (m4)} maketemp (@var{template})
+ There is a builtin macro, @code{maketemp}, for making temporary file
+-names, which expands to a name of a non-existent file, made from the
++names, which expands to a name of a new, empty file, made from the
+ string @var{template}, which should end with the string @samp{XXXXXX}.
+ The six @code{X}'s are then replaced, usually with something that
+ includes the process id of the @code{m4} process, in order to make the
+@@ -3437,15 +3437,8 @@
  @example
  maketemp(`/tmp/fooXXXXXX')
  @result{}/tmp/fooa07346
@@ -153,20 +93,20 @@ with NLS added to maketemp change in builtin.c.
 -or not.  If a file has not been created before the next call, the two
 -macro calls might expand to the same name.
 -
- The builtin macro @code{maketemp} is recognized only when given
- arguments.
+ @node Miscellaneous
+ @chapter Miscellaneous builtin macros
  
---- m4-1.4ppre2/po/pl.po.orig	Fri Jul 16 13:09:59 2004
-+++ m4-1.4ppre2/po/pl.po	Fri Jul 16 13:29:12 2004
-@@ -205,6 +205,11 @@
+--- m4-1.4q/po/pl.po.orig	2004-07-18 19:58:26.599280624 +0200
++++ m4-1.4q/po/pl.po	2004-07-18 20:09:20.541866240 +0200
+@@ -367,6 +367,11 @@
  msgid "Cannot open %s"
- msgstr "Nie mogê otworzyæ %s"
+ msgstr "Nie mo¿na otworzyæ %s"
  
-+#: src/builtin.c:1296
++#: modules/m4.c:544
 +#, c-format
 +msgid "Cannot create tempfile %s"
 +msgstr "Nie mo¿na utworzyæ pliku tymczasowego %s"
 +
- #: src/builtin.c:1460
+ #: modules/mpeval.c:189
  #, c-format
- msgid "Debugmode: bad debug flags: `%s'"
+ msgid "Loss of precision in eval: %s"
