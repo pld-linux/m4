@@ -5,10 +5,11 @@ Summary(pl): GNU makro procesor
 Summary(tr): GNU Makro Ýþlemcisi
 Name:        m4
 Version:     1.4n
-Release:     1
+Release:     2
 Copyright:   GPL
 Group:       Utilities/Text
 Source:      ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
+Patch0:      m4-info.patch
 URL:         http://www.seindal.dk/rene/gnu/
 Prereq:      /sbin/install-info
 Buildroot:   /tmp/%{name}-%{version}-root
@@ -36,24 +37,28 @@ sendmail.cf).
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" ./configure --prefix=/usr
+CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
+./configure \
+	--prefix=/usr \
+	--without-included-gettext
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install prefix=$RPM_BUILD_ROOT/usr
-strip $RPM_BUILD_ROOT/usr/bin/m4
-gzip -9fn $RPM_BUILD_ROOT/usr/info/*
+
+gzip -9fn $RPM_BUILD_ROOT/usr/{info/*,man/man1/*}
 
 %post
-/sbin/install-info /usr/info/m4.info.gz /usr/info/dir --entry \
-"* m4: (m4).                                     A powerful macro processor."
+/sbin/install-info /usr/info/m4.info.gz /etc/info-dir
 
 %preun
-/sbin/install-info --delete /usr/info/m4.info.gz /usr/info/dir --entry \
-"* m4: (m4).                                     A powerful macro processor."
+if [ $1 = 0 ]; then
+	/sbin/install-info --delete /usr/info/m4.info.gz /etc/info-dir
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -75,6 +80,12 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/share/locale/sv/LC_MESSAGES/m4.mo
 
 %changelog
+* Sun Jan 03 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.4n-2]
+- standarized {un}registering info pages (added m4-info.patch),
+- added --without-included-gettext to configure parameters,
+- added gzipping man pages.
+
 * Sat Nov 21 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.4m-1]
 - added URL,
