@@ -95,21 +95,22 @@ rm -f acm4/ltdl.m4
 %{__autoconf}
 %{__automake}
 %configure \
-	--without-included-gettext \
-	--with-modules \
-	--with-gmp \
 	--disable-ltdl-install \
-	--enable-changeword \
-	%{!?debug:--without-dmalloc} \
 	--disable-rpath \
-	--enable-static
+	--enable-changeword \
+	--enable-static \
+	--with-gmp \
+	--with-modules \
+	%{!?debug:--without-dmalloc} \
+	--without-included-gettext
 	
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT/%{_libdir}/m4/*.a
 
@@ -129,13 +130,11 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README THANKS AUTHORS ChangeLog TODO
-
 %attr(755,root,root) %{_bindir}/m4
 %attr(755,root,root) %{_libdir}/libm4.so.*.*
 %dir %{_libdir}/m4
 %attr(755,root,root) %{_libdir}/m4/*.so
 %{_libdir}/m4/*.la
-
 %{_datadir}/m4
 %{_infodir}/m4*
 %{_mandir}/man1/*
