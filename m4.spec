@@ -6,18 +6,16 @@ Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4p
 %define		_pre	pre2
-Release:	0.%{_pre}.4
+Release:	0.%{_pre}.5
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
 Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
-Patch0:		%{name}-ac.patch
-Patch1:		%{name}-ld.patch
-Patch2:		%{name}-format_string_fix.patch
-Patch3:		%{name}-ltdl.patch
-Patch4:		%{name}-info.patch
-Patch5:		%{name}-pl.po-update.patch
-Patch6:		%{name}-po-fix.patch
+Patch0:		%{name}-ac_am_cleanups.patch
+Patch1:		%{name}-format_string_fix.patch
+Patch2:		%{name}-info.patch
+Patch3:		%{name}-pl.po-update.patch
+Patch4:		%{name}-po-fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -85,11 +83,9 @@ Statyczna biblioteka m4.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 %build
-rm -f missing ltmain.sh ltconfig aclocal.m4 acm4/regex.m4 acm4/ltdl.m4
+rm -f acm4/ltdl.m4
 %{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I acm4
