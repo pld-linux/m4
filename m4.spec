@@ -5,14 +5,16 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4p
-Release:	0.1pre2
+%define		_pre	pre2
+Release:	0.1%{_pre}
 Epoch:		1
 License:	GPL
 Group:		Applications/Text
-Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}pre2.tar.gz
+Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-ld.patch
 Patch2:		%{name}-format_string_fix.patch
+Patch3:		%{name}-ltdl.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -47,11 +49,26 @@ U¿ywany jest do tworzenia plików tekstowych, które mog± byæ logicznie
 parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
 kodu ¼ród³owego.
 
+%package devel
+Summary:	Files to develop application with embedded m4 interpreter
+Group:		Development/Libraries
+
+%description devel
+Files to develop application with embedded m4 interpreter.
+
+%package static
+Summary:	Files to develop application with embedded m4 interpreter
+Group:		Development/Libraries
+
+%description static
+Files to develop application with embedded m4 interpreter.
+
 %prep
-%setup  -q -n m4-1.4ppre2
+%setup  -q -n %{name}-%{version}%{_pre}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 rm -f missing ltmain.sh ltconfig aclocal.m4 acm4/regex.m4 acm4/ltdl.m4
@@ -62,13 +79,23 @@ rm -f missing ltmain.sh ltconfig aclocal.m4 acm4/regex.m4 acm4/ltdl.m4
 %{__autoconf}
 %{__automake}
 %configure \
-	--without-included-gettext
+	--without-included-gettext \
+	--with-modules \
+	--with-gmp \
+	--disable-ltdl-install \
+	--enable-changeword \
+	%{!?debug:--without-dmalloc} \
+	--disable-rpath \
+	--enable-static
+	
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+rm -f $RPM_BUILD_ROOT/%{_libdir}/m4/*.a
 
 %find_lang %{name}
 
@@ -83,11 +110,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc NEWS README
+%doc NEWS README THANKS AUTHORS ChangeLog TODO
 
 %attr(755,root,root) %{_bindir}/m4
-%attr(755,root,root) %{_libdir}
+%attr(755,root,root) %{_libdir}/libm4.so.*.*
+%dir %{_libdir}/m4
+%attr(755,root,root) %{_libdir}/m4/*.so
+%{_libdir}/m4/*.la
 
 %{_datadir}/m4
 %{_infodir}/m4*
 %{_mandir}/man1/*
+
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/*
+%{_libdir}/libm4.so
+%{_libdir}/libm4.la
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libm4.a
