@@ -1,6 +1,7 @@
 Summary:     GNU Macro Processor
 Summary(de): GNU-Makro-Prozessor
 Summary(fr): Processeur de macros de GNU
+Summary(pl): GNU makro procesor
 Summary(tr): GNU Makro Ýþlemcisi
 Name:        m4
 Version:     1.4m
@@ -8,12 +9,13 @@ Release:     1
 Copyright:   GPL
 Group:       Utilities/Text
 Source:      ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
-Buildroot:   /tmp/%{name}-%{version}-root
+URL:         http://www.seindal.dk/rene/gnu/
 Prereq:      /sbin/install-info
+Buildroot:   /tmp/%{name}-%{version}-root
 
 %description
-This is the GNU Macro processing language.  It is useful for writing text
-files that can be parsed logically.  Many programs use it as part of their
+This is the GNU Macro processing language. It is useful for writing text
+files that can be parsed logically. Many programs use it as part of their
 build process.
 
 %description -l de
@@ -25,6 +27,12 @@ nutzen dies als Teil des Build-Vorgangs.
 Le langage de macro commande GNU. Il est utile pour constituer des fichiers
 textes devant etre parcourues logiquement. De nombreux programmes
 l'utilisent lors de leur processus de construction.
+
+%description -l pl
+Pakiet ten zawiera GNU makro porocesor. jest on u¿ytesczny w ró¿nego rodzaju
+generatorach róznych tekstów. Wiele programów u¿ywa m4 w trakcie swojej
+pracy lub do generowania róznych plików (np. w sendamilu do generowania
+sendmail.cf).
 
 %prep
 %setup -q
@@ -40,12 +48,12 @@ strip $RPM_BUILD_ROOT/usr/bin/m4
 gzip -9fn $RPM_BUILD_ROOT/usr/info/*
 
 %post
-/sbin/install-info /usr/info/m4.info.gz /usr/info/dir
+/sbin/install-info /usr/info/m4.info.gz /usr/info/dir --entry \
+"* m4: (m4).                                     A powerful macro processor."
 
 %preun
-if [ "$1" = 0 ]; then
-    /sbin/install-info --delete /usr/info/m4.info.gz /usr/info/dir
-fi
+/sbin/install-info --delete /usr/info/m4.info.gz /usr/info/dir --entry \
+"* m4: (m4).                                     A powerful macro processor."
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc NEWS README
 %attr(755, root, root) /usr/bin/m4
 /usr/info/*
+/usr/share/m4
+%attr(644, root,  man) /usr/man/man1/*
 %lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
 %lang(fr) /usr/share/locale/fr/LC_MESSAGES/m4.mo
 %lang(it) /usr/share/locale/it/LC_MESSAGES/m4.mo
@@ -65,6 +75,14 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/share/locale/sv/LC_MESSAGES/m4.mo
 
 %changelog
+* Sat Nov 21 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.4m-1]
+- added URL,
+- added pl transaltion,
+- added m4 man page to %files,
+- cosmetic changes in %post, %preun in {un}installing m4 info page,
+- added /usr/share/m4 to %files.
+
 * Thu Nov 12 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [1.4k-1]
 - changed base Source URL,
