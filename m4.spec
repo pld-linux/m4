@@ -89,6 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc NEWS README
 
 %attr(755,root,root) %{_bindir}/m4
+%attr(755,root,root) %{_libdir}
 
 %{_datadir}/m4
 %{_infodir}/m4*
