@@ -15,6 +15,7 @@ Patch1:		m4-system-libltdl.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
 BuildRequires:	gmp-devel
+BuildRequires:	libltdl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libexecdir	%{_libdir}
