@@ -6,7 +6,7 @@ Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4p
 %define		_pre	pre2
-Release:	0.%{_pre}.5
+Release:	0.%{_pre}.6
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -19,9 +19,10 @@ Patch4:		%{name}-po-fix.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool
 BuildRequires:	gettext-devel >= 0.11.5
+BuildRequires:	gmp-devel
 BuildRequires:	libltdl-devel
+BuildRequires:	libtool
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
