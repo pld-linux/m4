@@ -45,8 +45,8 @@ Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
 
 %prep
 %setup  -q
-#%patch0 -p1
-%patch1 -p1 -b .wiget
+%patch0 -p1
+%patch1 -p1
 
 %build
 cp aclocal.m4 acinclude.m4
