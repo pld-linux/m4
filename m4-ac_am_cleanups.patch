@@ -1,6 +1,15 @@
 diff -Naur m4-1.4ppre2.orig/configure.in m4-1.4ppre2/configure.in
 --- m4-1.4ppre2.orig/configure.in	Sun Jan 16 17:28:03 2000
 +++ m4-1.4ppre2/configure.in	Thu Apr 10 14:20:54 2003
+@@ -2,7 +2,7 @@
+ # Copyright (C) 1991-2000 Free Software Foundation, Inc.
+ # Process this file with autoconf to produce a configure script.
+ 
+-undefine([changeword])
++ifdef([changeword],[undefine([changeword])])
+ 
+ AC_INIT(src/m4.c)
+ AM_CONFIG_HEADER(config.h)
 @@ -10,11 +10,6 @@
  
  AM_INIT_AUTOMAKE(m4,1.4ppre2)
