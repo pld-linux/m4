@@ -65,12 +65,14 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %doc NEWS README
-%attr(755, root, root) /usr/bin/m4
-/usr/info/m4*
+%attr(755,root,root) /usr/bin/m4
 /usr/share/m4
+
+/usr/info/m4*
 /usr/man/man1/*
+
 %lang(de) /usr/share/locale/de/LC_MESSAGES/m4.mo
 %lang(fr) /usr/share/locale/fr/LC_MESSAGES/m4.mo
 %lang(it) /usr/share/locale/it/LC_MESSAGES/m4.mo
