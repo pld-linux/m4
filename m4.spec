@@ -6,11 +6,11 @@ Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4n
 Release:	1
-Epoch:		1
+Serial:		1
 License:	GPL
 Group:		Utilities/Text
 Group(pl):	Narzêdzia/Tekst
-Source:		ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}.tar.gz
 Patch0:		m4-info.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	gettext-devel
@@ -19,27 +19,28 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_libexecdir	%{_libdir}
 
 %description
-A GNU implementation of the traditional UNIX macro processor. M4 is useful
-for writing text files which can be logically parsed, and is used by many
-programs as part of their build process. M4 has built-in functions for
-including files, running shell commands, doing arithmetic, etc. The
-autoconf program needs m4 for generating configure scripts, but not for
-running configure scripts.
+A GNU implementation of the traditional UNIX macro processor. M4 is
+useful for writing text files which can be logically parsed, and is
+used by many programs as part of their build process. M4 has built-in
+functions for including files, running shell commands, doing
+arithmetic, etc. The autoconf program needs m4 for generating
+configure scripts, but not for running configure scripts.
 
 %description -l de
 Dies ist die GNU-Makroverarbeitungssprache. Es ist zum Schreiben von
-Textdateien geeignet, die logisch geparst werden können. Viele Programme
-nutzen dies als Teil des Build-Vorgangs.
+Textdateien geeignet, die logisch geparst werden können. Viele
+Programme nutzen dies als Teil des Build-Vorgangs.
 
 %description -l fr
-Le langage de macro commande GNU. Il est utile pour constituer des fichiers
-textes devant etre parcourues logiquement. De nombreux programmes
-l'utilisent lors de leur processus de construction.
+Le langage de macro commande GNU. Il est utile pour constituer des
+fichiers textes devant etre parcourues logiquement. De nombreux
+programmes l'utilisent lors de leur processus de construction.
 
 %description -l pl 
-W pakiecie znajduje siê m4 - GNU procesor jêzyka makrodefinicji. U¿ywany
-jest do tworzenia plików tekstowych, które mog± byæ logicznie parsowane.
-Wiele programów korzysta z m4 podczas procesu kompilacji kodu ¼ród³owego.
+W pakiecie znajduje siê m4 - GNU procesor jêzyka makrodefinicji.
+U¿ywany jest do tworzenia plików tekstowych, które mog± byæ logicznie
+parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
+kodu ¼ród³owego.
 
 %prep
 %setup  -q
@@ -57,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9fn $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
+gzip -9nf $RPM_BUILD_ROOT{%{_infodir}/*,%{_mandir}/man1/*} \
 	NEWS README
 
 %find_lang %{name}
