@@ -17,7 +17,7 @@ Patch1:		%{name}-pl.po-update.patch
 Patch2:		%{name}-po-fix.patch
 Patch3:		%{name}-fixes-1.4.1.patch
 Patch4:		%{name}-buserror.patch
-URL:		http://www.seindal.dk/rene/gnu/
+URL:		http://www.gnu.org/software/m4/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	gettext-devel >= 0.11.5
