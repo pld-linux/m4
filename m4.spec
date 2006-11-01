@@ -61,29 +61,29 @@ U¿ywany jest do tworzenia plików tekstowych, które mog± byæ logicznie
 parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
 kodu ¼ród³owego.
 
-#%package devel
-#Summary:	Files to develop application with embedded m4 interpreter
-#Summary(pl):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
-#Group:		Development/Libraries
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
+%package devel
+Summary:	Files to develop application with embedded m4 interpreter
+Summary(pl):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
+Group:		Development/Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
-#%description devel
-#Files to develop application with embedded m4 interpreter.
+%description devel
+Files to develop application with embedded m4 interpreter.
 
-#%description devel -l pl
-#Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
-#
-#%package static
-#Summary:	Static m4 library
-#Summary(pl):	Statyczna biblioteka m4
-#Group:		Development/Libraries
-#Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-#
-#%description static
-#Static m4 library.
-#
-#%description static -l pl
-#Statyczna biblioteka m4.
+%description devel -l pl
+Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
+
+%package static
+Summary:	Static m4 library
+Summary(pl):	Statyczna biblioteka m4
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+
+%description static
+Static m4 library.
+
+%description static -l pl
+Statyczna biblioteka m4.
 
 %prep
 %setup -q
