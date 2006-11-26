@@ -1,14 +1,15 @@
---- m4-1.4ppre2/doc/m4.texinfo.orig	Mon Jan 10 05:35:58 2000
-+++ m4-1.4ppre2/doc/m4.texinfo	Mon Mar  3 00:57:38 2003
-@@ -9,9 +9,9 @@
+diff -urN m4-1.4.8.org/doc/m4.texinfo m4-1.4.8/doc/m4.texinfo
+--- m4-1.4.8.org/doc/m4.texinfo	2006-11-20 14:55:43.000000000 +0100
++++ m4-1.4.8/doc/m4.texinfo	2006-11-26 03:51:12.974022250 +0100
+@@ -56,9 +56,9 @@
+ @end quotation
+ @end copying
  
- @set beta
- 
--@dircategory Text Processing Tools
-+@dircategory Text Processing Tools:
+-@dircategory GNU programming tools
++@dircategory GNU programming tools:
  @direntry
--* m4: (m4).			A powerful macro processor.
-+* m4: (m4).				A powerful macro processor
+-* M4: (m4).                     A powerful macro processor.
++* M4: (m4).				A powerful macro processor.
  @end direntry
  
- @ifinfo
+ @titlepage
