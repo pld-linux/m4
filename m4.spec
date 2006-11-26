@@ -1,6 +1,6 @@
 #
 # TODO:
-# - info patch needs backport, buserror needs check
+# - buserror needs check
 # - should we use all the stuff before configure? (builds without, breaks with autoconf)
 # - branch name is totally bogus, it could be "m4_1_4", definitely not "DEVEL"
 Summary:	GNU Macro Processor
@@ -9,13 +9,13 @@ Summary(fr):	Processeur de macros de GNU
 Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
-Version:	1.4.7
+Version:	1.4.8
 Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
 Source0:	ftp://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
-# Source0-md5:	0115a354217e36ca396ad258f6749f51
+# Source0-md5:	6bbf917e5d8fab20b38d43868c3944d3
 Patch0:		%{name}-info.patch
 #Patch1:		%{name}-buserror.patch
 URL:		http://www.gnu.org/software/m4/
@@ -82,18 +82,18 @@ Statyczna biblioteka m4.
 
 %prep
 %setup -q
-#%patch0 -p1
+%patch0 -p1
 #%patch1 -p1
 
 rm -f config/{libtool,ltdl}.m4
 
 %build
-%{__gettextize}
-%{__libtoolize}
-#%{__aclocal}
-#%{__autoheader}
-#%{__autoconf}
-#%{__automake}
+#%%{__gettextize}
+#%%{__libtoolize}
+#%%{__aclocal}
+#%%{__autoheader}
+#%%{__autoconf}
+#%%{__automake}
 %configure \
 	PACKAGE=m4 \
 	%{!?debug:--without-dmalloc}
