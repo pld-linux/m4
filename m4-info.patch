@@ -6,10 +6,10 @@ diff -urN m4-1.4.8.org/doc/m4.texinfo m4-1.4.8/doc/m4.texinfo
  @end copying
  
 -@dircategory GNU programming tools
-+@dircategory GNU programming tools:
++@dircategory Programming tools:
  @direntry
 -* M4: (m4).                     A powerful macro processor.
-+* M4: (m4).				A powerful macro processor.
++* M4: (m4).				A powerful macro processor
  @end direntry
  
  @titlepage
