@@ -4,10 +4,10 @@
 # - should we use all the stuff before configure? (builds without, breaks with autoconf)
 # - branch name is totally bogus, it could be "m4_1_4", definitely not "DEVEL"
 Summary:	GNU Macro Processor
-Summary(de):	GNU-Makro-Prozessor
-Summary(fr):	Processeur de macros de GNU
-Summary(pl):	GNU procesor jêzyka makrodefinicji
-Summary(tr):	GNU MakroÝþlemcisi
+Summary(de.UTF-8):   GNU-Makro-Prozessor
+Summary(fr.UTF-8):   Processeur de macros de GNU
+Summary(pl.UTF-8):   GNU procesor jÄ™zyka makrodefinicji
+Summary(tr.UTF-8):   GNU MakroÄ°ÅŸlemcisi
 Name:		m4
 Version:	1.4.8
 Release:	0.1
@@ -40,44 +40,44 @@ functions for including files, running shell commands, doing
 arithmetic, etc. The autoconf program needs m4 for generating
 configure scripts, but not for running configure scripts.
 
-%description -l de
+%description -l de.UTF-8
 Dies ist die GNU-Makroverarbeitungssprache. Es ist zum Schreiben von
-Textdateien geeignet, die logisch geparst werden können. Viele
+Textdateien geeignet, die logisch geparst werden kÃ¶nnen. Viele
 Programme nutzen dies als Teil des Build-Vorgangs.
 
-%description -l fr
+%description -l fr.UTF-8
 Le langage de macro commande GNU. Il est utile pour constituer des
 fichiers textes devant etre parcourues logiquement. De nombreux
 programmes l'utilisent lors de leur processus de construction.
 
-%description -l pl
-W pakiecie znajduje siê m4 - GNU procesor jêzyka makrodefinicji.
-U¿ywany jest do tworzenia plików tekstowych, które mog± byæ logicznie
-parsowane. Wiele programów korzysta z m4 podczas procesu kompilacji
-kodu ¼ród³owego.
+%description -l pl.UTF-8
+W pakiecie znajduje siÄ™ m4 - GNU procesor jÄ™zyka makrodefinicji.
+UÅ¼ywany jest do tworzenia plikÃ³w tekstowych, ktÃ³re mogÄ… byÄ‡ logicznie
+parsowane. Wiele programÃ³w korzysta z m4 podczas procesu kompilacji
+kodu ÅºrÃ³dÅ‚owego.
 
 %package devel
 Summary:	Files to develop application with embedded m4 interpreter
-Summary(pl):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
+Summary(pl.UTF-8):   Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description devel
 Files to develop application with embedded m4 interpreter.
 
-%description devel -l pl
+%description devel -l pl.UTF-8
 Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
 
 %package static
 Summary:	Static m4 library
-Summary(pl):	Statyczna biblioteka m4
+Summary(pl.UTF-8):   Statyczna biblioteka m4
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static m4 library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka m4.
 
 %prep
