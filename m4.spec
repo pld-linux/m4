@@ -1,22 +1,23 @@
+#
+# TODO:
+# - buserror needs check
+# - should we use all the stuff before configure? (builds without, breaks with autoconf)
+# - branch name is totally bogus, it could be "m4_1_4", definitely not "DEVEL"
 Summary:	GNU Macro Processor
-Summary(de.UTF-8):	GNU-Makro-Prozessor
-Summary(fr.UTF-8):	Processeur de macros de GNU
-Summary(pl.UTF-8):	GNU procesor języka makrodefinicji
-Summary(tr.UTF-8):	GNU Makroİşlemcisi
+Summary(de.UTF-8):   GNU-Makro-Prozessor
+Summary(fr.UTF-8):   Processeur de macros de GNU
+Summary(pl.UTF-8):   GNU procesor języka makrodefinicji
+Summary(tr.UTF-8):   GNU Makroİşlemcisi
 Name:		m4
-Version:	1.4q
-Release:	2
+Version:	1.4.8
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
-#Source0:	ftp://ftp.seindal.dk/gnu/%{name}-%{version}%{_pre}.tar.gz
-Source0:	http://www.lrde.epita.fr/~akim/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	de5ffda17f317b12272286ea93c9f2c0
+Source0:	ftp://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
+# Source0-md5:	6bbf917e5d8fab20b38d43868c3944d3
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-pl.po-update.patch
-Patch2:		%{name}-po-fix.patch
-Patch3:		%{name}-fixes-1.4.1.patch
-Patch4:		%{name}-buserror.patch
+#Patch1:		%{name}-buserror.patch
 URL:		http://www.gnu.org/software/m4/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
@@ -57,7 +58,7 @@ kodu źródłowego.
 
 %package devel
 Summary:	Files to develop application with embedded m4 interpreter
-Summary(pl.UTF-8):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
+Summary(pl.UTF-8):   Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -69,7 +70,7 @@ Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
 
 %package static
 Summary:	Static m4 library
-Summary(pl.UTF-8):	Statyczna biblioteka m4
+Summary(pl.UTF-8):   Statyczna biblioteka m4
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
@@ -82,27 +83,19 @@ Statyczna biblioteka m4.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+#%patch1 -p1
 
 rm -f config/{libtool,ltdl}.m4
 
 %build
-%{__gettextize}
-%{__libtoolize}
-%{__aclocal} -I config
-%{__autoheader}
-%{__autoconf}
-%{__automake}
+#%%{__gettextize}
+#%%{__libtoolize}
+#%%{__aclocal}
+#%%{__autoheader}
+#%%{__autoconf}
+#%%{__automake}
 %configure \
 	PACKAGE=m4 \
-	--disable-ltdl-install \
-	--disable-rpath \
-	--enable-static \
-	--with-gmp \
-	--with-modules \
 	%{!?debug:--without-dmalloc}
 
 %{__make}
@@ -113,39 +106,18 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/m4/*.a
-
-%find_lang %{name}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %postun
-/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%files -f %{name}.lang
+%files
 %defattr(644,root,root,755)
 %doc NEWS README THANKS AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_bindir}/m4
-%attr(755,root,root) %{_libdir}/libm4.so.*.*
-%dir %{_libdir}/m4
-%attr(755,root,root) %{_libdir}/m4/*.so*
-%{_libdir}/m4/*.la
-%{_datadir}/m4
-%{_infodir}/m4*
+%{_infodir}/*.info*
 %{_mandir}/man1/*
-
-%files devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libm4.so
-%{_libdir}/libm4.la
-%{_includedir}/*
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libm4.a
