@@ -1,0 +1,2 @@
+- release 0.%{_pre}.6,
+- added gmp-devel to BuildRequires (because m4 is configured --with-gmp).
