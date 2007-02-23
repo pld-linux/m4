@@ -1,0 +1,3 @@
+- added using %configure macro (autoconf patch) and DESTDIR style %install,
+- added "BuildRequires: gettext-devel",
+- new %description from rawhide spec.
