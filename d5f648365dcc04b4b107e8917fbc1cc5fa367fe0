@@ -1,0 +1,3 @@
+- 0.%{_pre}.5 release,
+- merge ac, ld, ltdl ipatches and add many more ac/am cleanups,
+- before regenerate ac/am/lt/ah resources remove from build tree only acm4/ltdl.m4.
