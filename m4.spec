@@ -1,3 +1,4 @@
+%bcond_with	tests
 Summary:	GNU Macro Processor
 Summary(de.UTF-8):   GNU-Makro-Prozessor
 Summary(fr.UTF-8):   Processeur de macros de GNU
@@ -91,6 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{?with_tests:%{__make} check}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
