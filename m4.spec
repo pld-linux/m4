@@ -1,4 +1,7 @@
-%bcond_with	tests
+#
+# Conditional build
+%bcond_with	tests	# perform "make check"
+#
 Summary:	GNU Macro Processor
 Summary(de.UTF-8):   GNU-Makro-Prozessor
 Summary(fr.UTF-8):   Processeur de macros de GNU
@@ -17,15 +20,11 @@ URL:		http://www.gnu.org/software/m4/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
 BuildRequires:	gettext-devel >= 0.11.5
-BuildRequires:	gmp-devel
-BuildRequires:	libltdl-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	perl-devel
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_libexecdir	%{_libdir}
 
 %description
 A GNU implementation of the traditional UNIX macro processor. M4 is
