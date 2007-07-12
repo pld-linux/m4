@@ -9,8 +9,8 @@ Summary(pl.UTF-8):   GNU procesor języka makrodefinicji
 Summary(tr.UTF-8):   GNU Makroİşlemcisi
 Name:		m4
 Version:	1.4.10
-Release:	1
-Epoch:		2
+Release:	2
+Epoch:		3
 License:	GPL v3+
 Group:		Applications/Text
 Source0:	ftp://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
