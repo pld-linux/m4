@@ -5,7 +5,7 @@ Summary(pl):	GNU procesor jêzyka makrodefinicji
 Summary(tr):	GNU MakroÝþlemcisi
 Name:		m4
 Version:	1.4q
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -16,6 +16,7 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-pl.po-update.patch
 Patch2:		%{name}-po-fix.patch
 Patch3:		%{name}-fixes-1.4.1.patch
+Patch4:		%{name}-buserror.patch
 URL:		http://www.seindal.dk/rene/gnu/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.7.1
@@ -84,6 +85,7 @@ Statyczna biblioteka m4.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 rm -f config/{libtool,ltdl}.m4
 
