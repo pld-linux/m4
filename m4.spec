@@ -13,7 +13,7 @@ Release:	1
 Epoch:		3
 License:	GPL v3+
 Group:		Applications/Text
-Source0:	ftp://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
 # Source0-md5:	96ec473c2a6f203976c028e896a01b28
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/m4/
