@@ -76,6 +76,7 @@ Statyczna biblioteka m4.
 
 %prep
 %setup -q
+%patch0 -p1
 
 rm -f config/{libtool,ltdl}.m4
 
@@ -97,15 +98,15 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p	/sbin/postshell
+%post	-p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-p	/sbin/postshell
+%postun	-p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
 %defattr(644,root,root,755)
 %doc NEWS README THANKS AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_bindir}/m4
-%{_infodir}/*.info*
-%{_mandir}/man1/*
+%{_infodir}/m4.info*
+%{_mandir}/man1/m4.1*
