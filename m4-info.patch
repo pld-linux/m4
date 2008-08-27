@@ -1,12 +1,11 @@
-diff -urN m4-1.4.8.org/doc/m4.texinfo m4-1.4.8/doc/m4.texinfo
---- m4-1.4.8.org/doc/m4.texinfo	2006-11-20 14:55:43.000000000 +0100
-+++ m4-1.4.8/doc/m4.texinfo	2006-11-26 03:51:12.974022250 +0100
-@@ -56,9 +56,9 @@
+--- m4-1.4.11/doc/m4.texinfo.orig	2008-03-30 04:30:29.000000000 +0200
++++ m4-1.4.11/doc/m4.texinfo	2008-08-27 23:31:20.212373380 +0200
+@@ -55,9 +55,9 @@
  @end quotation
  @end copying
  
--@dircategory GNU programming tools
-+@dircategory Programming tools:
+-@dircategory Text creation and manipulation
++@dircategory Text Processing Tools:
  @direntry
 -* M4: (m4).                     A powerful macro processor.
 +* M4: (m4).				A powerful macro processor
