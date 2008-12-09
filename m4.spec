@@ -3,10 +3,10 @@
 %bcond_with	tests	# perform "make check"
 #
 Summary:	GNU Macro Processor
-Summary(de.UTF-8):   GNU-Makro-Prozessor
-Summary(fr.UTF-8):   Processeur de macros de GNU
-Summary(pl.UTF-8):   GNU procesor języka makrodefinicji
-Summary(tr.UTF-8):   GNU Makroİşlemcisi
+Summary(de.UTF-8):	GNU-Makro-Prozessor
+Summary(fr.UTF-8):	Processeur de macros de GNU
+Summary(pl.UTF-8):	GNU procesor języka makrodefinicji
+Summary(tr.UTF-8):	GNU Makroİşlemcisi
 Name:		m4
 Version:	1.4.12
 Release:	1
@@ -52,7 +52,7 @@ kodu źródłowego.
 
 %package devel
 Summary:	Files to develop application with embedded m4 interpreter
-Summary(pl.UTF-8):   Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
+Summary(pl.UTF-8):	Pliki do tworzenia aplikacji z wbudowanym interpreterem m4
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -64,7 +64,7 @@ Pliki do tworzenia aplikacji z wbudowanym interpreterem m4.
 
 %package static
 Summary:	Static m4 library
-Summary(pl.UTF-8):   Statyczna biblioteka m4
+Summary(pl.UTF-8):	Statyczna biblioteka m4
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
@@ -94,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{?with_tests:%{__make} check}
+
+rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
