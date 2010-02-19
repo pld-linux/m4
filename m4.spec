@@ -17,11 +17,6 @@ Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
 # Source0-md5:	28f9ccd3ac4da45409251008b911d677
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/m4/
-BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake >= 1:1.7.1
-BuildRequires:	gettext-devel >= 0.11.5
-BuildRequires:	libtool >= 2:1.5
-BuildRequires:	perl-devel
 BuildRequires:	texinfo
 Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
