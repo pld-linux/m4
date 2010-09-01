@@ -8,16 +8,18 @@ Summary(fr.UTF-8):	Processeur de macros de GNU
 Summary(pl.UTF-8):	GNU procesor języka makrodefinicji
 Summary(tr.UTF-8):	GNU Makroİşlemcisi
 Name:		m4
-Version:	1.4.14
+Version:	1.4.15
 Release:	1
 Epoch:		3
 License:	GPL v3+
 Group:		Applications/Text
-Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.bz2
-# Source0-md5:	e6fb7d08d50d87e796069cff12a52a93
+Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
+# Source0-md5:	1caf3410e6590f493834dc99ee04d027
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/m4/
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
+BuildRequires:	xz
 Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -73,8 +75,6 @@ Statyczna biblioteka m4.
 %setup -q
 %patch0 -p1
 
-rm -f config/{libtool,ltdl}.m4
-
 %build
 %configure \
 	PACKAGE=m4 \
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS README THANKS AUTHORS ChangeLog TODO
+%doc AUTHORS ChangeLog NEWS README THANKS TODO
 %attr(755,root,root) %{_bindir}/m4
 %{_infodir}/m4.info*
 %{_mandir}/man1/m4.1*
