@@ -8,13 +8,13 @@ Summary(fr.UTF-8):	Processeur de macros de GNU
 Summary(pl.UTF-8):	GNU procesor języka makrodefinicji
 Summary(tr.UTF-8):	GNU Makroİşlemcisi
 Name:		m4
-Version:	1.4.15
+Version:	1.4.16
 Release:	1
 Epoch:		3
 License:	GPL v3+
 Group:		Applications/Text
 Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
-# Source0-md5:	1caf3410e6590f493834dc99ee04d027
+# Source0-md5:	7548ec061a1ba993790159764f522d0e
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/m4/
 BuildRequires:	tar >= 1:1.22
