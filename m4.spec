@@ -1,6 +1,6 @@
 #
 # Conditional build
-%bcond_with	tests	# perform "make check"
+%bcond_without	tests	# perform "make check"
 #
 Summary:	GNU Macro Processor
 Summary(de.UTF-8):	GNU-Makro-Prozessor
