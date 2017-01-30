@@ -8,13 +8,13 @@ Summary(fr.UTF-8):	Processeur de macros de GNU
 Summary(pl.UTF-8):	GNU procesor języka makrodefinicji
 Summary(tr.UTF-8):	GNU Makroİşlemcisi
 Name:		m4
-Version:	1.4.17
-Release:	2
+Version:	1.4.18
+Release:	1
 Epoch:		3
 License:	GPL v3+
 Group:		Applications/Text
 Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
-# Source0-md5:	12a3c829301a4fd6586a57d3fcf196dc
+# Source0-md5:	730bb15d96fffe47e148d1e09235af82
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/m4/
 BuildRequires:	libsigsegv
@@ -79,6 +79,7 @@ Statyczna biblioteka m4.
 %build
 %configure \
 	PACKAGE=m4 \
+	--disable-silent-rules \
 	%{!?debug:--without-dmalloc}
 
 %{__make}
