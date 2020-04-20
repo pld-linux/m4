@@ -16,6 +16,7 @@ Group:		Applications/Text
 Source0:	http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
 # Source0-md5:	730bb15d96fffe47e148d1e09235af82
 Patch0:		%{name}-info.patch
+Patch1:		glibc-2.28.patch
 URL:		http://www.gnu.org/software/m4/
 BuildRequires:	libsigsegv
 BuildRequires:	tar >= 1:1.22
@@ -75,6 +76,7 @@ Statyczna biblioteka m4.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure \
