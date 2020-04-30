@@ -78,6 +78,8 @@ Statyczna biblioteka m4.
 %patch0 -p1
 %patch1 -p1
 
+%{__sed} -i '1 i @documentencoding ISO-8859-1' doc/m4.texi
+
 %build
 %configure \
 	PACKAGE=m4 \
