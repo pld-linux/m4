@@ -82,6 +82,9 @@ Statyczna biblioteka m4.
 %{__rm} checks/198.sysval
 touch checks/stamp-checks
 
+# PLD builders stub resolv.conf file, use another one for tests
+%{__sed} -i -e 's,/etc/resolv\.conf,/etc/nsswitch.conf,' tests/test-read-file.c
+
 %build
 %configure \
 	PACKAGE=m4 \
