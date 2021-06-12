@@ -93,13 +93,13 @@ touch checks/stamp-checks
 
 %{__make}
 
+%{?with_tests:%{__make} check || cat tests/test-suite.log}
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{?with_tests:%{__make} check}
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
