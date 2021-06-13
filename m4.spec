@@ -86,7 +86,7 @@ touch checks/stamp-checks
 %{__sed} -i -e 's,/etc/resolv\.conf,/etc/nsswitch.conf,' tests/test-read-file.c
 # SIGPIPE tests fail on builders due to unknown reason (detached terminal???)
 # raise(SIGPIPE) does nothing, child process exits with return code 71
-%{__sed} -i -e 's/ 3 4 //' tests/test-execute.sh
+%{__sed} -i -e 's/ 3 4 / /' tests/test-execute.sh
 
 %build
 %configure \
