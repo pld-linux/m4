@@ -1,0 +1,18 @@
+--- m4-1.4.19/tests/test-execute-main.c.orig	2021-05-19 16:35:46.000000000 +0200
++++ m4-1.4.19/tests/test-execute-main.c	2021-06-13 08:38:25.162916625 +0200
+@@ -136,6 +136,7 @@
+         int termsig = 0x7DEADBEE;
+         int ret = execute (progname, prog_argv[0], prog_argv, NULL,
+                            false, false, false, false, true, false, &termsig);
++        fprintf(stderr, "RET %d\n", ret);
+         ASSERT (ret == 127);
+         ASSERT (termsig == SIGPIPE);
+       }
+@@ -149,6 +150,7 @@
+         int termsig = 0x7DEADBEE;
+         int ret = execute (progname, prog_argv[0], prog_argv, NULL,
+                            true, false, false, false, true, false, &termsig);
++        fprintf(stderr, "RET %d\n", ret);
+         ASSERT (ret == 0);
+         ASSERT (termsig == SIGPIPE);
+       }
