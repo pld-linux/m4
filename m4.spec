@@ -8,13 +8,13 @@ Summary(fr.UTF-8):	Processeur de macros de GNU
 Summary(pl.UTF-8):	GNU procesor języka makrodefinicji
 Summary(tr.UTF-8):	GNU Makroİşlemcisi
 Name:		m4
-Version:	1.4.19
+Version:	1.4.20
 Release:	1
 Epoch:		3
 License:	GPL v3+
 Group:		Applications/Text
 Source0:	https://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
-# Source0-md5:	0d90823e1426f1da2fd872df0311298d
+# Source0-md5:	6eb2ebed5b24e74b6e890919331d2132
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/m4/
 BuildRequires:	gettext-tools >= 0.19.2
@@ -75,12 +75,6 @@ Statyczna biblioteka m4.
 %prep
 %setup -q
 %patch -P0 -p1
-
-%{__sed} -i '1 i @documentencoding ISO-8859-1' doc/m4.texi
-
-# fails because of "Killed" printed (expected stderr is empty)
-%{__rm} checks/198.sysval
-touch checks/stamp-checks
 
 # PLD builders stub resolv.conf file, use another one for tests
 %{__sed} -i -e 's,/etc/resolv\.conf,/etc/nsswitch.conf,' tests/test-read-file.c
